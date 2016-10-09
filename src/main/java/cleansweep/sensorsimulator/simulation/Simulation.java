@@ -1,7 +1,9 @@
 package cleansweep.sensorsimulator.simulation;
 
+import cleansweep.sensorsimulator.utils.NavigationManager.Direction;
+
 public interface Simulation {
-	public String checkCoordinateObjectType(int row, int column);
+	public String senseObstruction(Direction direction);
 	
-	public String checkCoordinateFloorType(int row, int column);
+	public String senseFloorType();
 }
