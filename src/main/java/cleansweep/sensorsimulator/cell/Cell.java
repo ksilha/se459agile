@@ -1,5 +1,9 @@
 package cleansweep.sensorsimulator.cell;
 
-public interface Cell {
 
+
+
+public interface Cell {
+	public Boolean isObstruction();
+	
 }

@@ -3,6 +3,7 @@ package cleansweep.sensorsimulator;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import cleansweep.sensorsimulator.cell.*;
 
 /**
  * Unit test for simple App.
@@ -34,5 +35,58 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+    
+    /*
+     * Test obstacles
+     */
+    
+    //Test wall
+    WallCellImpl wall = new WallCellImpl();
+    
+    //@test
+    public void testWallObst()
+    {
+    	assertTrue(true == wall.isObstruction());
+    }
+    
+    //test stairs
+    StairsCellImpl stair = new StairsCellImpl();
+    
+    //@test
+    public void testStairObst()
+    {
+    	assertTrue(true == stair.isObstruction());
+    }
+    
+    //test closed door
+    DoorCellImpl closedDoor = new DoorCellImpl(true);
+    
+    //@test
+    public void testCloseDoorObst()
+    {
+    	assertTrue(true == closedDoor.isObstruction());
+    }
+    
+    /*
+     * Test unobstructed
+     */
+    
+    //test floor
+    FloorCellImpl floor = new FloorCellImpl();
+    
+    //@test
+    public void testFloorNonObst()
+    {
+    	assertTrue(false == floor.isObstruction());
+    }
+    
+    //test open door
+    DoorCellImpl openDoor = new DoorCellImpl(false);
+    
+    //@test
+    public void testOpenDoorNonObst()
+    {
+    	assertTrue(false == openDoor.isObstruction());
     }
 }
