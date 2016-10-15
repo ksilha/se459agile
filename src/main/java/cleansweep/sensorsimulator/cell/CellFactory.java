@@ -1,11 +1,10 @@
 package cleansweep.sensorsimulator.cell;
 
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
+
 public class CellFactory {
 	public static Cell createCell(char cellType) {
-        if (cellType == ' ') {
-            return new FloorCellImpl();
-        }
-        else if (cellType == 'S') {
+        if (cellType == 'S') {
             return new StairsCellImpl();
         }
         else if (cellType == 'D') {
@@ -15,10 +14,24 @@ public class CellFactory {
             return new WallCellImpl();
         }
         else if (cellType == 'C') {
-            return new WallCellImpl();
+            return new ChargingBaseCellImpl();
         }
         else {
-            return null;
+        	FloorType floorType = getFloorType(cellType);
+        	return new FloorCellImpl(floorType);
         }
     }
+	
+	private static FloorType getFloorType(char cellType) {
+		if (cellType == 'H') {
+			return FloorType.HIGH_PILE_CARPET;
+		}
+		else if (cellType == 'L') {
+			return FloorType.LOW_PILE_CARPET;
+		}
+		else {
+			return FloorType.BARE_FLOOR;
+		}
+
+	}
 }

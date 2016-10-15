@@ -3,6 +3,7 @@ package cleansweep.sensorsimulator;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.cell.*;
 
 /**
@@ -73,7 +74,7 @@ public class AppTest
      */
     
     //test floor
-    FloorCellImpl floor = new FloorCellImpl();
+    FloorCellImpl floor = new FloorCellImpl(FloorType.BARE_FLOOR);
     
     //@test
     public void testFloorNonObst()

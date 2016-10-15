@@ -2,6 +2,7 @@
 
 import cleansweep.sensorcontroller.ControllerFacade;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 
 /**
  * Hello world!
@@ -13,16 +14,19 @@ public class App
     {
         ControllerFacade.initialize("SIMULATION");
         
-        String obstructionType = ControllerFacade.senseObstruction(Direction.NORTH);
-        System.out.println(obstructionType);
+        Boolean isObstruction = ControllerFacade.senseObstruction(Direction.NORTH);
+        System.out.println("North: " + isObstruction);
         
-        obstructionType = ControllerFacade.senseObstruction(Direction.SOUTH);
-        System.out.println(obstructionType);
+        isObstruction = ControllerFacade.senseObstruction(Direction.SOUTH);
+        System.out.println("South: " + isObstruction);
         
-        obstructionType = ControllerFacade.senseObstruction(Direction.EAST);
-        System.out.println(obstructionType);
+        isObstruction = ControllerFacade.senseObstruction(Direction.EAST);
+        System.out.println("East: " + isObstruction);
         
-        obstructionType = ControllerFacade.senseObstruction(Direction.WEST);
-        System.out.println(obstructionType);
+        isObstruction = ControllerFacade.senseObstruction(Direction.WEST);
+        System.out.println("West: " + isObstruction);
+        
+        FloorType floorType = ControllerFacade.senseFloorType();
+        System.out.println("Floor Type: " + floorType);
     }
 }

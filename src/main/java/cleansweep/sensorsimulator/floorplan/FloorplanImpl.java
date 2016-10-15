@@ -1,15 +1,17 @@
 package cleansweep.sensorsimulator.floorplan;
 
-import cleansweep.sensorcontroller.ControllerFacade.Direction;
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.cell.Cell;
 import cleansweep.sensorsimulator.cell.CellFactory;
+import cleansweep.sensorsimulator.cell.ChargingBaseCellImpl;
+import cleansweep.sensorsimulator.cell.FloorCellImpl;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 import cleansweep.sensorsimulator.utils.FileManager;
 
 public class FloorplanImpl implements Floorplan {
 	private Cell[][] grid;
-	private int chargingStationRow;
-	private int chargingStationCol;
+	private int currentRow;
+	private int currentCol;
 	
 	FloorplanImpl(String fileName) {
 		System.out.println(fileName);
@@ -27,8 +29,8 @@ public class FloorplanImpl implements Floorplan {
         		char character = row.charAt(c);
         		
         		if (character == 'C') {
-        			chargingStationRow = r;
-        			chargingStationCol = c;
+        			currentRow = r;
+        			currentCol = c;
         		}
         		
         		Cell cell = CellFactory.createCell(character);
@@ -39,17 +41,31 @@ public class FloorplanImpl implements Floorplan {
         
     }
 
-	public CoordinatesDTO getChargingStationCoordinates() {
+	public CoordinatesDTO getCurrentCoordinates() {
 		CoordinatesDTO coordinates = new CoordinatesDTO();
-		coordinates.row = chargingStationRow;
-		coordinates.column = chargingStationCol;
+		coordinates.row = currentRow;
+		coordinates.column = currentCol;
 		
 		return coordinates;
 	}
 
 	@Override
-	public String senseObstruction(CoordinatesDTO coordinates) {
+	public boolean senseObstruction(CoordinatesDTO coordinates) {
 		Cell cell = grid[coordinates.row][coordinates.column];
-		return cell.getClass().getSimpleName();
+		return cell.isObstruction();
+	}
+
+	@Override
+	public FloorType senseFloorType() {
+		Cell cell = grid[currentRow][currentCol];
+		
+		if (cell.getClass().getSimpleName().equals("FloorCellImpl")) {
+			return ((FloorCellImpl)cell).getFloorType();
+		}
+		else if (cell.getClass().getSimpleName().equals("ChargingBaseCellImpl")) {
+			return ((ChargingBaseCellImpl)cell).getFloorType();
+		}
+		
+		return null;
 	}
 }

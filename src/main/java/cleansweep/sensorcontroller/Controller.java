@@ -1,10 +1,11 @@
 package cleansweep.sensorcontroller;
 
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 
 public interface Controller {
-	String senseObstruction(Direction direction);
-	String senseFloorType();
+	boolean senseObstruction(Direction direction);
+	FloorType senseFloorType();
 	boolean move(Direction direction);
 	int checkPercentExplored();
 }

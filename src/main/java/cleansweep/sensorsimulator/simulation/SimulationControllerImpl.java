@@ -2,6 +2,7 @@ package cleansweep.sensorsimulator.simulation;
 
 import cleansweep.sensorcontroller.Controller;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.floorplan.Floorplan;
 import cleansweep.sensorsimulator.floorplan.FloorplanFactory;
 
@@ -12,21 +13,21 @@ public class SimulationControllerImpl implements Controller {
 	
 	public SimulationControllerImpl() {
 		floorplan = FloorplanFactory.createFloorplan("floorplan.txt");
-		CoordinatesDTO coordinates = floorplan.getChargingStationCoordinates();
+		CoordinatesDTO coordinates = floorplan.getCurrentCoordinates();
 		currentRow = coordinates.row;
 		currentColumn = coordinates.column;
 	}
 
-	public String senseObstruction(Direction direction) {
+	public boolean senseObstruction(Direction direction) {
 		CoordinatesDTO coordinates = calculateMovementCoordinates(direction);
 		
 		
 		return floorplan.senseObstruction(coordinates);
 	}
 
-	public String senseFloorType() {
+	public FloorType senseFloorType() {
 		// TODO Auto-generated method stub
-		return null;
+		return floorplan.senseFloorType();
 	}
 
 	public boolean move(Direction direction) {
@@ -40,7 +41,7 @@ public class SimulationControllerImpl implements Controller {
 	}
 	
 	private CoordinatesDTO calculateMovementCoordinates(Direction direction) {
-		CoordinatesDTO coordinates = floorplan.getChargingStationCoordinates();
+		CoordinatesDTO coordinates = floorplan.getCurrentCoordinates();
 		
 		if (direction == Direction.NORTH) {
 			coordinates.row = currentRow - 1;

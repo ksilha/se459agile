@@ -5,17 +5,21 @@ public class ControllerFacade {
 	    NORTH, SOUTH, EAST, WEST 
 	}
 	
+	public enum FloorType {
+	    BARE_FLOOR, LOW_PILE_CARPET, HIGH_PILE_CARPET, CHARGING_STATION
+	}
+	
 	private static Controller controller;
 	
 	public static void initialize(String hardwareVersion) {
 		controller = ControllerFactory.createController(hardwareVersion);
 	}
 	
-	public static String senseObstruction(Direction direction) {
+	public static Boolean senseObstruction(Direction direction) {
 		return controller.senseObstruction(direction);
 	}
 	
-	public static String senseFloorType() {
+	public static FloorType senseFloorType() {
 		
 		return controller.senseFloorType();
 	}
