@@ -1,10 +1,16 @@
 package cleansweep.sensorsimulator.floorplan;
 
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorsimulator.cell.Cell;
 import cleansweep.sensorsimulator.cell.CellFactory;
+import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 import cleansweep.sensorsimulator.utils.FileManager;
 
 public class FloorplanImpl implements Floorplan {
+	private Cell[][] grid;
+	private int chargingStationRow;
+	private int chargingStationCol;
+	
 	FloorplanImpl(String fileName) {
 		System.out.println(fileName);
 		
@@ -12,7 +18,7 @@ public class FloorplanImpl implements Floorplan {
         
         String[] rows = fileContents.split("\n");
         
-        Cell[][] grid = new Cell[rows.length][rows[0].length()];
+        grid = new Cell[rows.length][rows[0].length()];
         
         for (int r=0; r < rows.length; r++) {
         	String row = rows[r];
@@ -20,15 +26,30 @@ public class FloorplanImpl implements Floorplan {
         	for (int c=0; c < row.length(); c++) {
         		char character = row.charAt(c);
         		
+        		if (character == 'C') {
+        			chargingStationRow = r;
+        			chargingStationCol = c;
+        		}
+        		
         		Cell cell = CellFactory.createCell(character);
         		
         		grid[r][c] = cell;
         	}
         }
         
-        System.out.println(grid[0][0].getClass());
-        System.out.println(grid[1][1].getClass());
-        System.out.println(grid[5][1].getClass());
-        
     }
+
+	public CoordinatesDTO getChargingStationCoordinates() {
+		CoordinatesDTO coordinates = new CoordinatesDTO();
+		coordinates.row = chargingStationRow;
+		coordinates.column = chargingStationCol;
+		
+		return coordinates;
+	}
+
+	@Override
+	public String senseObstruction(CoordinatesDTO coordinates) {
+		Cell cell = grid[coordinates.row][coordinates.column];
+		return cell.getClass().getSimpleName();
+	}
 }

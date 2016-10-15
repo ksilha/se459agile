@@ -1,5 +1,9 @@
 package cleansweep.sensorsimulator.floorplan;
 
-public interface Floorplan {
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
+import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
+public interface Floorplan {
+	CoordinatesDTO getChargingStationCoordinates();
+	String senseObstruction(CoordinatesDTO coordinates);
 }
