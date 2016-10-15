@@ -1,11 +1,11 @@
 +--------+-----------+
-|        |          C|
-|        D           |
-|        |           |
+|HHHHHHHH|          C|
+|HHHHHHHHD           |
+|HHHHHHHH|           |
 |--------+           |
 |SSS                 |
 |--------+           |
-|        |           |
-|        D           |
-|        |           |
+|LLLLLLLL|           |
+|LLLLLLLLD           |
+|LLLLLLLL|           |
 +--+-----+-----------+

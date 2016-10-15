@@ -6,7 +6,7 @@ public class ControllerFacade {
 	}
 	
 	public enum FloorType {
-	    BARE_FLOOR, LOW_PILE_CARPET, HIGH_PILE_CARPET, CHARGING_STATION
+	    BARE_FLOOR, LOW_PILE_CARPET, HIGH_PILE_CARPET, CHARGING_STATION, DOORWAY, INVALID
 	}
 	
 	private static Controller controller;

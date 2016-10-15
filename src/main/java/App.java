@@ -15,18 +15,49 @@ public class App
         ControllerFacade.initialize("SIMULATION");
         
         Boolean isObstruction = ControllerFacade.senseObstruction(Direction.NORTH);
-        System.out.println("North: " + isObstruction);
+        System.out.println("North Obstructed: " + isObstruction);
         
         isObstruction = ControllerFacade.senseObstruction(Direction.SOUTH);
-        System.out.println("South: " + isObstruction);
+        System.out.println("South Obstructed: " + isObstruction);
         
         isObstruction = ControllerFacade.senseObstruction(Direction.EAST);
-        System.out.println("East: " + isObstruction);
+        System.out.println("East Obstructed: " + isObstruction);
         
         isObstruction = ControllerFacade.senseObstruction(Direction.WEST);
-        System.out.println("West: " + isObstruction);
+        System.out.println("West Obstructed: " + isObstruction);
         
         FloorType floorType = ControllerFacade.senseFloorType();
+        System.out.println("Floor Type: " + floorType);
+        
+        Boolean moved = ControllerFacade.move(Direction.NORTH);
+        System.out.println("Moved North: " + moved);
+        
+        moved = ControllerFacade.move(Direction.SOUTH);
+        System.out.println("Moved South: " + moved);
+        
+        floorType = ControllerFacade.senseFloorType();
+        System.out.println("Floor Type: " + floorType);
+        
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        moved = ControllerFacade.move(Direction.WEST);
+        System.out.println("Moved West: " + moved);
+        
+        floorType = ControllerFacade.senseFloorType();
+        System.out.println("Floor Type: " + floorType);
+        
+        moved = ControllerFacade.move(Direction.WEST);
+        System.out.println("Moved West: " + moved);
+        
+        floorType = ControllerFacade.senseFloorType();
         System.out.println("Floor Type: " + floorType);
     }
 }

@@ -1,5 +1,6 @@
 package cleansweep.sensorsimulator.floorplan;
 
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.cell.Cell;
 import cleansweep.sensorsimulator.cell.CellFactory;
@@ -11,7 +12,7 @@ import cleansweep.sensorsimulator.utils.FileManager;
 public class FloorplanImpl implements Floorplan {
 	private Cell[][] grid;
 	private int currentRow;
-	private int currentCol;
+	private int currentColumn;
 	
 	FloorplanImpl(String fileName) {
 		System.out.println(fileName);
@@ -30,7 +31,7 @@ public class FloorplanImpl implements Floorplan {
         		
         		if (character == 'C') {
         			currentRow = r;
-        			currentCol = c;
+        			currentColumn = c;
         		}
         		
         		Cell cell = CellFactory.createCell(character);
@@ -44,9 +45,14 @@ public class FloorplanImpl implements Floorplan {
 	public CoordinatesDTO getCurrentCoordinates() {
 		CoordinatesDTO coordinates = new CoordinatesDTO();
 		coordinates.row = currentRow;
-		coordinates.column = currentCol;
+		coordinates.column = currentColumn;
 		
 		return coordinates;
+	}
+	
+	public void setCurrentCoordinates(CoordinatesDTO coordinates) {
+		currentRow = coordinates.row;
+		currentColumn = coordinates.column;
 	}
 
 	@Override
@@ -57,15 +63,31 @@ public class FloorplanImpl implements Floorplan {
 
 	@Override
 	public FloorType senseFloorType() {
-		Cell cell = grid[currentRow][currentCol];
+		Cell cell = grid[currentRow][currentColumn];
 		
-		if (cell.getClass().getSimpleName().equals("FloorCellImpl")) {
-			return ((FloorCellImpl)cell).getFloorType();
+		return cell.getFloorType();
+	}
+	
+	public CoordinatesDTO calculateMovementCoordinates(Direction direction) {
+		CoordinatesDTO coordinates = new CoordinatesDTO();
+		
+		if (direction == Direction.NORTH) {
+			coordinates.row = currentRow - 1;
+			coordinates.column = currentColumn;
 		}
-		else if (cell.getClass().getSimpleName().equals("ChargingBaseCellImpl")) {
-			return ((ChargingBaseCellImpl)cell).getFloorType();
+		else if (direction == Direction.SOUTH) {
+			coordinates.row = currentRow + 1;
+			coordinates.column = currentColumn;
+		}
+		else if (direction == Direction.EAST) {
+			coordinates.row = currentRow;
+			coordinates.column = currentColumn + 1;
+		}
+		else if (direction == Direction.WEST) {
+			coordinates.row = currentRow;
+			coordinates.column = currentColumn - 1;
 		}
 		
-		return null;
+		return coordinates;
 	}
 }

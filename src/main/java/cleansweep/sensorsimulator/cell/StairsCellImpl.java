@@ -1,8 +1,11 @@
 package cleansweep.sensorsimulator.cell;
 
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
+
 public class StairsCellImpl implements Cell 
 {
 	Boolean obstruction;
+	private static FloorType floorType = FloorType.INVALID;
 	
 	public Boolean isObstruction()
 	{
@@ -12,6 +15,11 @@ public class StairsCellImpl implements Cell
 	public StairsCellImpl()
 	{
 		obstruction = true;
+	}
+
+	@Override
+	public FloorType getFloorType() {
+		return floorType;
 	}
 
 }
