@@ -15,7 +15,7 @@ public class DoorCellImpl implements Cell
 	//default construction, door closed by default
 	public DoorCellImpl()	
 	{
-		obstruction = false;
+		obstruction = true;
 	}
 	
 	public Boolean isObstruction()
