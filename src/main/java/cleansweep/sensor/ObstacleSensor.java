@@ -1,22 +1,27 @@
 package cleansweep.sensor;
 
-public class ObstacleSensor extends Sensor {
+import cleansweep.sensorcontroller.ControllerFacade;
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
 
-	public ObstacleSensor() {
-		super(SensorType.OBSTACLE);
-		// TODO Auto-generated constructor stub
+public abstract class ObstacleSensor extends Sensor {
+	private Direction direction;
+	
+	public ObstacleSensor(Direction dir) {
+		super (SensorType.OBSTACLE);
+		setDirection (dir);
 	}
-
-	@Override
-	public void detect() {
-		// TODO Auto-generated method stub
-		
+	
+	private void setDirection (Direction dir){
+		if (dir == null)
+		{
+			//error message
+		}
+		else
+			direction = dir;
 	}
-
-	@Override
-	public void sendSignal() {
-		// TODO Auto-generated method stub
-		
+	
+	public Direction getDirection (){
+		return direction;
 	}
 
 }

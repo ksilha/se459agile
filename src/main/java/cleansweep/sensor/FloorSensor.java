@@ -1,5 +1,7 @@
 package cleansweep.sensor;
 
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
+
 public class FloorSensor extends Sensor{
 
 	public FloorSensor() {
@@ -8,16 +10,8 @@ public class FloorSensor extends Sensor{
 	}
 
 	@Override
-	public void detect() {
+	public boolean detect() {
 		// TODO Auto-generated method stub
-		
+		return true;
 	}
-
-	@Override
-	public void sendSignal() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
 }
