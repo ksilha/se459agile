@@ -1,5 +1,7 @@
 package cleansweep.sensorcontroller;
 
+import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
+
 public class ControllerFacade {
 	public enum Direction {
 	    NORTH, SOUTH, EAST, WEST 
@@ -30,7 +32,11 @@ public class ControllerFacade {
 	
 	public static int checkPercentExplored() {
 		
-		
 		return controller.checkPercentExplored();
 	}
+	
+	public static CoordinatesDTO currentLocation (){
+		return controller.getCurrentLocation();
+	}
+	
 }

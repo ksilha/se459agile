@@ -1,31 +1,21 @@
 package cleansweep.navigation;
+import java.util.ArrayList;
+
 import cleansweep.sensorsimulator.cell.*;
 import cleansweep.sensorsimulator.floorplan.*;
+import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 
-public class Navigation {
-	Floorplan plan;
-	Cell[][] cells;
+public interface Navigation {
 	
-	public Navigation(Floorplan floorplan)
-	{
-		plan = floorplan;
-	}
-	
-	//Should this be a void function, updating a global array?
-	void locatePermiter()
-	{
-		int xDimension = 0;
-		int yDimension = 0;
-		
-		
-		Cell[][] dimensions = new Cell[xDimension][yDimension];
-		cells = dimensions;
-	}
-	
-	void traverseFloorPlan()
-	{
-		
-	}
-
+	void senseObstaclesFromAllDirection ();
+	int getWestBoundary ();
+	int getEastBoundary ();
+	int getNorthBoundary ();
+	int getSouthBoundary ();
+	int getEastWestDistance ();
+	int getNorthSouthDistance ();
+	ArrayList<CoordinatesDTO> visitedCellsList ();
+	int shortestDistanceFromChargingStation ();
+	boolean hasTraverseAllCells ();
 }

@@ -8,11 +8,13 @@ import cleansweep.sensor.ObstacleSensor;
 import cleansweep.sensor.SensorType;
 import cleansweep.sensor.SouthSensor;
 import cleansweep.sensor.WestSensor;
+import cleansweep.sensorcontroller.ControllerFacade;
 
 public class ProcessInit {
 	
 	public ProcessInit (){
 		createSensors();
+		initializeSimulation();
 	}
 	
 	
@@ -23,6 +25,9 @@ public class ProcessInit {
 		SouthSensor.getInstance();
 	}
 	
+	private void initializeSimulation (){
+		ControllerFacade.initialize("SIMULATION");
+	}
 	
 	
 	

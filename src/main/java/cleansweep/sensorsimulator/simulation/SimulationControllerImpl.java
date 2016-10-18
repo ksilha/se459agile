@@ -39,4 +39,9 @@ public class SimulationControllerImpl implements Controller {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public CoordinatesDTO getCurrentLocation() {
+		return floorplan.getCurrentCoordinates();
+	}
 }
