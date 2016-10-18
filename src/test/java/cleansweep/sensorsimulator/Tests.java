@@ -2,10 +2,14 @@ package cleansweep.sensorsimulator;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import cleansweep.sensor.Sensor;
+//import cleansweep.sensor.SensorFactory;
+import cleansweep.sensor.SensorType;
 import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.cell.*;
 
 public class Tests {
+	//cleansweep.sensorsimulator.cell Tests --------------------------------------------------------------------
 
 	//WallCellImpl Tests
 	@Test
@@ -144,6 +148,74 @@ public class Tests {
 	}
 	
 	
+	// cleansweep.sensor Tests --------------------------------------------------------------------
+	//SensorFactory Tests
+	/*
+	
+	@Test
+	public void testBuildDirtSensor() {
+		Sensor dirtSensor = SensorFactory.buildSensor(SensorType.DIRT);
+		SensorType st = dirtSensor.getType();
+		assertTrue(st == SensorType.DIRT);
+	}
+	
+	@Test
+	public void testBuildFloorSensor() {
+		Sensor floorSensor = SensorFactory.buildSensor(SensorType.FLOOR);
+		SensorType st = floorSensor.getType();
+		assertTrue(st == SensorType.FLOOR);
+	}
+	
+	@Test
+	public void testBuildObstacleSensor() {
+		Sensor obstacleSensor = SensorFactory.buildSensor(SensorType.OBSTACLE);
+		SensorType st = obstacleSensor.getType();
+		assertTrue(st == SensorType.OBSTACLE);
+	}
+	
+	//Obstacle Sensor Tests
+	public void testObstacleSensorDetect() {
+		Sensor os = SensorFactory.buildSensor(SensorType.OBSTACLE);
+		os.detect();
+		//test detect method
+	}
+	public void testObstacleSensorSendSignal() {
+		Sensor os = SensorFactory.buildSensor(SensorType.OBSTACLE);
+		os.sendSignal();
+		//test sendSignal method
+	}
+	
+	//Floor Sensor Tests
+	public void testFloorSensorDetect() {
+		Sensor fs = SensorFactory.buildSensor(SensorType.FLOOR);
+		fs.detect();
+		//test detect method
+	}
+		
+	public void testFloorSensorSendSignal() {
+		Sensor fs = SensorFactory.buildSensor(SensorType.FLOOR);
+		fs.sendSignal();
+		//test sendSignal method
+	}
+	
+	
+	//Dirt Sensor Tests
+	public void testDirtSensorDetect() {
+		Sensor ds = SensorFactory.buildSensor(SensorType.DIRT);
+		ds.detect();
+		//test detect method
+	}
+		
+	public void testDirtSensorSendSignal() {
+		Sensor ds = SensorFactory.buildSensor(SensorType.DIRT);
+		ds.sendSignal();
+		//test sendSignal method
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -158,7 +230,7 @@ public class Tests {
 	
 	
 	
-	
+	*/
 
 
 
