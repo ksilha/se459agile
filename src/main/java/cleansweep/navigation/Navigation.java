@@ -1,13 +1,15 @@
 package cleansweep.navigation;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorsimulator.cell.*;
 import cleansweep.sensorsimulator.floorplan.*;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 
-public interface Navigation {
-	
+public interface Navigation {	
+	Direction getDirection ();
 	void senseObstaclesFromAllDirection ();
 	int getWestBoundary ();
 	int getEastBoundary ();
@@ -15,7 +17,8 @@ public interface Navigation {
 	int getSouthBoundary ();
 	int getEastWestDistance ();
 	int getNorthSouthDistance ();
-	ArrayList<CoordinatesDTO> visitedCellsList ();
+	ArrayList<CoordinatesDTO> getPath ();
+	HashMap <CoordinatesDTO, Integer> getVisitedCoordinatesMap ();
 	int shortestDistanceFromChargingStation ();
 	boolean hasTraverseAllCells ();
 }
