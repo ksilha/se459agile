@@ -4,6 +4,7 @@ import cleansweep.sensorcontroller.Controller;
 import cleansweep.sensorcontroller.ControllerFacade;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorsimulator.floorplan.FloorplanImpl;
+import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 public class MovementImpl implements Movement {
 	private Controller controller;
@@ -13,7 +14,6 @@ public class MovementImpl implements Movement {
 			//throw exception
 		} else 
 			controller = control;
-		
 	}
 	
 	@Override
@@ -48,5 +48,9 @@ public class MovementImpl implements Movement {
 		}
 	}
 
-	
+	@Override
+	public void move(CoordinatesDTO coordinate) {
+		//to be completed
+		
+	}
 }

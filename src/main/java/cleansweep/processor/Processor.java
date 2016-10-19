@@ -3,6 +3,7 @@ package cleansweep.processor;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 public interface Processor {
@@ -15,5 +16,6 @@ public interface Processor {
 	ArrayList<CoordinatesDTO> getPath ();
 	HashMap <CoordinatesDTO, Integer> getVisitedCoordinatesMap ();
 	int shortestDistanceFromChargingStation ();
-	boolean hasTraverseAllCells ();
+	boolean hasTraverseAllCells (Direction direction);
+	CoordinatesDTO getNextCoordinate ();
 }
