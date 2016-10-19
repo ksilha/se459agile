@@ -17,23 +17,24 @@ public class NavigationImpl implements Navigation {
 	private boolean southObstacle;
 	private boolean eastObstacle;
 	private boolean westObstacle;
-	private int westBoundary; 
-	private int eastBoundary;
-	private int southBoundary;
-	private int northBoundary;
+	private CoordinatesDTO westCoordinate;
+	private CoordinatesDTO eastCoordinate;
+	private CoordinatesDTO northCoordinate;
+	private CoordinatesDTO southCoordinate;
 	private NorthSensor northSensor;
 	private SouthSensor southSensor;
 	private EastSensor eastSensor;
 	private WestSensor westSensor;
-	private ArrayList <CoordinatesDTO> path;
 	private HashMap <CoordinatesDTO, Integer> visitedCoordinatesMap;
 	
 	
-	public NavigationImpl (CoordinatesDTO current, NorthSensor northSensor, SouthSensor southSensor, EastSensor eastSensor, WestSensor westSensor){
-		checkInputs (current, northSensor, southSensor, eastSensor, westSensor);
+	public NavigationImpl (CoordinatesDTO current, NorthSensor northSensor, SouthSensor southSensor, EastSensor eastSensor, WestSensor westSensor, HashMap <CoordinatesDTO, Integer> map ){
+		checkParameters (current, northSensor, southSensor, eastSensor, westSensor, map);
+		setAllCoordinates ();
+		senseObstaclesFromAllDirections();
 	}
 	
-	private void checkInputs (CoordinatesDTO current, NorthSensor northSensor, SouthSensor southSensor, EastSensor eastSensor, WestSensor westSensor){
+	private void checkParameters (CoordinatesDTO current, NorthSensor northSensor, SouthSensor southSensor, EastSensor eastSensor, WestSensor westSensor, HashMap <CoordinatesDTO, Integer> map){
 		if (current != null)
 			currentCoordinate = current;
 		else{
@@ -62,127 +63,59 @@ public class NavigationImpl implements Navigation {
 			this.westSensor = westSensor;
 		else {
 			//throw exception
-		}				
-	}
-	
-	@Override
-	public void senseObstaclesFromAllDirection() {
-		northObstacle = northSensor.detect();
-		southObstacle = southSensor.detect();
-		eastObstacle = eastSensor.detect();
-		westObstacle = westSensor.detect();
-	}
-
-	@Override
-	public int getWestBoundary() {
-		return westBoundary;
-	}
-
-	@Override
-	public int getEastBoundary() {
-		return eastBoundary;
-	}
-
-	@Override
-	public int getNorthBoundary() {
-		return northBoundary;
-	}
-
-	@Override
-	public int getSouthBoundary() {
-		return southBoundary;
-	}
-
-	@Override
-	public int getEastWestDistance() {
-		return Math.abs(eastBoundary) + Math.abs(westBoundary) + 1;
-	}
-
-	@Override
-	public int getNorthSouthDistance() {
-		return Math.abs(northBoundary) + Math.abs(southBoundary)+1;
-	}
-
-	@Override
-	public ArrayList<CoordinatesDTO> getPath() {
-		return path;
-	}
-
-	@Override
-	public int shortestDistanceFromChargingStation() {
-		return Math.abs(currentCoordinate.column) + Math.abs(currentCoordinate.row);
-	}
-
-	@Override
-	public boolean hasTraverseAllCells() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Direction getDirection() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public HashMap<CoordinatesDTO, Integer> getVisitedCoordinatesMap() {
-		return visitedCoordinatesMap;
-	}
-
-
-	private int setWestBoundary(int column) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private int setEastBoundary(int column) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private int setNorthBoundary() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private int setSouthBoundary() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private int setEastWestDistance() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private int setNorthSouthDistance() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	private void addPath (CoordinatesDTO coordinate){
-		if (coordinate != null)
-			path.add(coordinate);
+		}
+		
+		if (map != null)
+			visitedCoordinatesMap = map;
 		else {
 			//throw exception
 		}
 	}
 	
-	private void addToVisitedCoordinatesMap (CoordinatesDTO coordinate){
-		if (coordinate == null){
-			//throw exception
-		} else {
-			if (visitedCoordinatesMap == null){
-				visitedCoordinatesMap = new HashMap <CoordinatesDTO, Integer>();
-				visitedCoordinatesMap.put(coordinate, 1);				
-			} else{
-				if (visitedCoordinatesMap.containsKey(coordinate))
-					visitedCoordinatesMap.put(coordinate, visitedCoordinatesMap.get(coordinate)+1);
-				else
-					visitedCoordinatesMap.put(coordinate, 1);
-			}
-		}
+	private void setAllCoordinates(){
+		northCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
+		southCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column-1);
+		eastCoordinate = new CoordinatesDTO (currentCoordinate.row+1, currentCoordinate.column);
+		westCoordinate = new CoordinatesDTO (currentCoordinate.row-1, currentCoordinate.column);
 	}
 	
+	
+	private void senseObstaclesFromAllDirections() {
+		northObstacle = northSensor.detect();
+		southObstacle = southSensor.detect();
+		eastObstacle = eastSensor.detect();
+		westObstacle = westSensor.detect();
+	}			
+
+	@Override
+	public Direction getDirection() {		
+		if (westObstacle == false && !visitedCoordinatesMap.containsKey(westCoordinate))
+			return Direction.WEST;
+		else if (southObstacle == false && !visitedCoordinatesMap.containsKey(southCoordinate) && visitedCoordinatesMap.containsKey(eastCoordinate) )
+			return Direction.SOUTH;
+		else if (eastObstacle == false && !visitedCoordinatesMap.containsKey(eastCoordinate))
+			return Direction.EAST;
+		
+		return Direction.NORTH;
+	}
+
+	@Override
+	public boolean getNorthObstacle() {
+		return northObstacle;
+	}
+
+	@Override
+	public boolean getSouthObstacle() {
+		return southObstacle;
+	}
+
+	@Override
+	public boolean getEastObstacle() {
+		return eastObstacle;
+	}
+
+	@Override
+	public boolean getWestObstacle() {
+		return westObstacle;
+	}
 }

@@ -10,15 +10,9 @@ import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 public interface Navigation {	
 	Direction getDirection ();
-	void senseObstaclesFromAllDirection ();
-	int getWestBoundary ();
-	int getEastBoundary ();
-	int getNorthBoundary ();
-	int getSouthBoundary ();
-	int getEastWestDistance ();
-	int getNorthSouthDistance ();
-	ArrayList<CoordinatesDTO> getPath ();
-	HashMap <CoordinatesDTO, Integer> getVisitedCoordinatesMap ();
-	int shortestDistanceFromChargingStation ();
-	boolean hasTraverseAllCells ();
+	boolean getNorthObstacle ();
+	boolean getSouthObstacle ();
+	boolean getEastObstacle ();
+	boolean getWestObstacle ();
+
 }
