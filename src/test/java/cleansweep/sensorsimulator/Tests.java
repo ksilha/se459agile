@@ -2,9 +2,12 @@ package cleansweep.sensorsimulator;
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import cleansweep.movement.MovementFactory;
 import cleansweep.sensor.Sensor;
 //import cleansweep.sensor.SensorFactory;
 import cleansweep.sensor.SensorType;
+import cleansweep.sensorcontroller.ControllerFacade;
+import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.cell.*;
 
@@ -147,6 +150,26 @@ public class Tests {
 		assertTrue(chargeCell.isObstruction() == false);
 	}
 	
+	//ControllerFacade Tests
+	@Test
+	
+	public void testSenseObstruction() {
+		
+		ControllerFacade.initialize("SIMULATION");
+		
+		Boolean obstructionN = ControllerFacade.senseObstruction(Direction.NORTH);
+		Boolean obstructionS = ControllerFacade.senseObstruction(Direction.SOUTH);
+		Boolean obstructionE =ControllerFacade.senseObstruction(Direction.EAST);
+		Boolean obstructionW =ControllerFacade.senseObstruction(Direction.WEST);
+		
+		//is there a way to know what the result should be ?
+		assertNotNull(obstructionN);
+		assertNotNull(obstructionS);
+		assertNotNull(obstructionE);
+		assertNotNull(obstructionW);
+		
+		
+	}
 	
 	// cleansweep.sensor Tests --------------------------------------------------------------------
 	//SensorFactory Tests
@@ -212,25 +235,10 @@ public class Tests {
 		//test sendSignal method
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//FloorPlanImpl Tests
 	//FloorPlanFactory Tests
 	//SimulationControllerImpl Tests
-	
-	
-	
-	
-	
-	
-	*/
+*/
 
 
 
