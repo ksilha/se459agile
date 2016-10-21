@@ -1,248 +1,226 @@
 package cleansweep.sensorsimulator;
 import org.junit.*;
 import static org.junit.Assert.*;
-
 import cleansweep.movement.MovementFactory;
-import cleansweep.sensor.Sensor;
-//import cleansweep.sensor.SensorFactory;
-import cleansweep.sensor.SensorType;
-import cleansweep.sensorcontroller.ControllerFacade;
+import cleansweep.sensor.*;
+import cleansweep.sensorcontroller.*;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorcontroller.ControllerFacade.FloorType;
-import cleansweep.sensorsimulator.cell.*;
+import cleansweep.sensorsimulator.cell.Cell;
+import cleansweep.sensorsimulator.cell.CellFactory;
+import cleansweep.sensorsimulator.cell.DoorCellImpl;
+import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 public class Tests {
-	//cleansweep.sensorsimulator.cell Tests --------------------------------------------------------------------
 
-	//WallCellImpl Tests
+//WallCellImpl Tests
+
 	@Test
 	public void testFloorTypeWall1() {
 		Cell wallCell = CellFactory.createCell('+');
 		FloorType ft = wallCell.getFloorType();
 		assertTrue(ft == FloorType.INVALID);
 	}
-	
+
 	@Test
 	public void testFloorTypeWall2() {
 		Cell wallCell = CellFactory.createCell('-');
 		FloorType ft = wallCell.getFloorType();
 		assertTrue(ft == FloorType.INVALID);
 	}
-	
+
 	@Test
 	public void testFloorTypeWall3() {
 		Cell wallCell = CellFactory.createCell('|');
 		FloorType ft = wallCell.getFloorType();
 		assertTrue(ft == FloorType.INVALID);
 	}
-	
+
 	@Test
 	public void testIsObstructionWall1() {
 		Cell wallCell = CellFactory.createCell('-');
 		assertTrue(wallCell.isObstruction());
 	}
-	
+
 	@Test
 	public void testIsObstructionWall2() {
 		Cell wallCell = CellFactory.createCell('+');
 		assertTrue(wallCell.isObstruction());
 	}
-	
+
 	@Test
 	public void testIsObstructionWall3() {
 		Cell wallCell = CellFactory.createCell('|');
 		assertTrue(wallCell.isObstruction());
 	}
-	
-	//StairsCellImp Tests
-	
+
+//StairsCellImp Tests
+
 	@Test
 	public void testIsObstructionStairs() {
 		Cell stairCell = CellFactory.createCell('S');
 		assertTrue(stairCell.isObstruction());
 	}
-	
+
 	@Test
 	public void TestFloorTypeStairs() {
 		Cell stairCell = CellFactory.createCell('S');
 		FloorType ft = stairCell.getFloorType();
 		assertTrue(ft == FloorType.INVALID);
 	}
-	
-	//FloorCellImplTests
-	
+
+//FloorCellImplTests
+
 	@Test
 	public void testFloorTypeHighCarpet() {
 		Cell hFloorCell = CellFactory.createCell('H');
 		FloorType t = hFloorCell.getFloorType();
 		assertTrue(t == FloorType.HIGH_PILE_CARPET);
 	}
-	
+
 	@Test
 	public void testFloorTypeLowCarpet() {
 		Cell lFloorCell = CellFactory.createCell('L');
 		FloorType t = lFloorCell.getFloorType();
 		assertTrue(t == FloorType.LOW_PILE_CARPET);
 	}
-	
+
 	@Test
 	public void testFloorTypeBare() {
 		Cell bFloorCell = CellFactory.createCell('B');
 		FloorType t = bFloorCell.getFloorType();
 		assertTrue(t == FloorType.BARE_FLOOR);
 	}
-	
+
 	@Test
 	public void testFloorCellIsObstructionH() {
 		Cell floorCell = CellFactory.createCell('H');
 		assertTrue(floorCell.isObstruction() == false);
 	}
-	
+
 	@Test
 	public void testFloorCellIsObstructionL() {
 		Cell floorCell = CellFactory.createCell('L');
 		assertTrue(floorCell.isObstruction() == false);
 	}
-	
+
 	@Test
 	public void testFloorCellIsObstructionB() {
 		Cell floorCell = CellFactory.createCell('B');
 		assertTrue(floorCell.isObstruction() == false);
 	}
-	
-	//DoorCellImpl Tests
+
+//DoorCellImpl Tests
+
 	@Test
 	public void TestFloorTypeDoorway() {
 		Cell doorCell = CellFactory.createCell('D');
 		FloorType ft = doorCell.getFloorType();
 		assertTrue(ft == FloorType.DOORWAY);
 	}
-	
+
 	@Test 
-	//test default constructor
+	//tests default constructor
 	public void testDoorwayIsObstructionDefault() { 
 		Cell doorCell = CellFactory.createCell('D');
 		assertTrue(doorCell.isObstruction() == true);
 	}
+
 	@Test
 	public void testDoorwayIsObstructionClosed2() {
 		Cell doorCell = new DoorCellImpl(true);
 		assertTrue(doorCell.isObstruction() == true);
 	}
+
 	@Test
 	public void testDoorwayIsObstructionOpen() {
 		Cell doorCell = new DoorCellImpl(false);
 		assertTrue(doorCell.isObstruction() == false);
 	}
-	
-	//ChargingBaseCellImpl Tests
-	
+
+//ChargingBaseCellImpl Tests
+
 	@Test
 	public void testChargingBaseCellGetFloorType() {
 		Cell chargeCell = CellFactory.createCell('C');
 		FloorType ft = chargeCell.getFloorType();
 		assertTrue(ft == FloorType.CHARGING_STATION);
 	}
-	
+
 	@Test 
 	public void testChargeingBaseCellIsObstruction() { 
 		Cell chargeCell = CellFactory.createCell('C');
 		assertTrue(chargeCell.isObstruction() == false);
 	}
-	
-	//ControllerFacade Tests
+
+//ControllerFacade Tests
+
 	@Test
-	
 	public void testSenseObstruction() {
-		
 		ControllerFacade.initialize("SIMULATION");
-		
 		Boolean obstructionN = ControllerFacade.senseObstruction(Direction.NORTH);
 		Boolean obstructionS = ControllerFacade.senseObstruction(Direction.SOUTH);
 		Boolean obstructionE =ControllerFacade.senseObstruction(Direction.EAST);
 		Boolean obstructionW =ControllerFacade.senseObstruction(Direction.WEST);
-		
-		//is there a way to know what the result should be ?
+
+		//Check if there is a way to know what the result should be ?
 		assertNotNull(obstructionN);
 		assertNotNull(obstructionS);
 		assertNotNull(obstructionE);
 		assertNotNull(obstructionW);
-		
-		
 	}
-	
-	// cleansweep.sensor Tests --------------------------------------------------------------------
-	//SensorFactory Tests
-	/*
+
+	@Test
+	public void testSenseFloorType() {
+		ControllerFacade.initialize("SIMULATION");
+		FloorType ft = ControllerFacade.senseFloorType();
+		
+		assertNotNull(ft);
+		assertTrue(ft.equals(FloorType.BARE_FLOOR) ||
+			ft.equals(FloorType.CHARGING_STATION) ||
+			ft.equals(FloorType.DOORWAY) ||
+			ft.equals(FloorType.HIGH_PILE_CARPET) ||
+			ft.equals(FloorType.LOW_PILE_CARPET) ||
+			ft.equals(FloorType.INVALID));
+	}
+
+	@Test
+	public void testMove() {
+		ControllerFacade.initialize("SIMULATION");
+		
+		assertNotNull(ControllerFacade.move(Direction.NORTH));
+		assertNotNull(ControllerFacade.move(Direction.SOUTH));
+		assertNotNull(ControllerFacade.move(Direction.EAST));
+		assertNotNull(ControllerFacade.move(Direction.WEST));
+	}
+
+	@Test
+	public void testCheckPercentExplored() {
+		ControllerFacade.initialize("SIMULATION");
+
+		int percent = ControllerFacade.checkPercentExplored();
+		System.out.println(percent + "Percent Explored");
+		assertNotNull(percent);
+	}
+
+	@Test
+	public void testCurrentLocation() {
+		ControllerFacade.initialize("SIMULATION");
+
+		CoordinatesDTO cl = ControllerFacade.currentLocation();
+		assertNotNull(cl);
+	}
+
+//Sensor Tests
 	
 	@Test
-	public void testBuildDirtSensor() {
-		Sensor dirtSensor = SensorFactory.buildSensor(SensorType.DIRT);
-		SensorType st = dirtSensor.getType();
-		assertTrue(st == SensorType.DIRT);
-	}
-	
-	@Test
-	public void testBuildFloorSensor() {
-		Sensor floorSensor = SensorFactory.buildSensor(SensorType.FLOOR);
-		SensorType st = floorSensor.getType();
-		assertTrue(st == SensorType.FLOOR);
-	}
-	
-	@Test
-	public void testBuildObstacleSensor() {
-		Sensor obstacleSensor = SensorFactory.buildSensor(SensorType.OBSTACLE);
-		SensorType st = obstacleSensor.getType();
-		assertTrue(st == SensorType.OBSTACLE);
-	}
-	
-	//Obstacle Sensor Tests
-	public void testObstacleSensorDetect() {
-		Sensor os = SensorFactory.buildSensor(SensorType.OBSTACLE);
-		os.detect();
-		//test detect method
-	}
-	public void testObstacleSensorSendSignal() {
-		Sensor os = SensorFactory.buildSensor(SensorType.OBSTACLE);
-		os.sendSignal();
-		//test sendSignal method
-	}
-	
-	//Floor Sensor Tests
-	public void testFloorSensorDetect() {
-		Sensor fs = SensorFactory.buildSensor(SensorType.FLOOR);
-		fs.detect();
-		//test detect method
-	}
+	public void setSensorTypeTest() {
+		Sensor ds = new DirtSensor();
+		Sensor fs = new FloorSensor();
+		//Sensor os = new Sensor(SensorType.OBSTACLE);
 		
-	public void testFloorSensorSendSignal() {
-		Sensor fs = SensorFactory.buildSensor(SensorType.FLOOR);
-		fs.sendSignal();
-		//test sendSignal method
+		assertTrue(ds.getType() == SensorType.DIRT);
+		assertTrue(fs.getType() == SensorType.FLOOR);
 	}
-	
-	
-	//Dirt Sensor Tests
-	public void testDirtSensorDetect() {
-		Sensor ds = SensorFactory.buildSensor(SensorType.DIRT);
-		ds.detect();
-		//test detect method
-	}
-		
-	public void testDirtSensorSendSignal() {
-		Sensor ds = SensorFactory.buildSensor(SensorType.DIRT);
-		ds.sendSignal();
-		//test sendSignal method
-	}
-	
-	//FloorPlanImpl Tests
-	//FloorPlanFactory Tests
-	//SimulationControllerImpl Tests
-*/
-
-
-
-	
-	
 
 }

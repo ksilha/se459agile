@@ -11,8 +11,12 @@ public abstract class Sensor {
 		
 	}
 	
-	public SensorType getType (SensorType model){
+/*	public SensorType getType (SensorType model){
 		return model;
+	}
+*/
+	public SensorType getType() {
+		return this.type;
 	}
 	
 	private void setType (SensorType model){
