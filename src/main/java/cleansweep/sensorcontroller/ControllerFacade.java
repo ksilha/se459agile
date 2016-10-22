@@ -39,4 +39,11 @@ public class ControllerFacade {
 		return controller.getCurrentLocation();
 	}
 	
+	public static Boolean senseDirt() {
+		return true;
+	}
+	
+	public static void suckDirt() {
+		
+	}
 }
