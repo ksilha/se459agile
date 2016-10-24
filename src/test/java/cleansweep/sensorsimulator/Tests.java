@@ -222,5 +222,63 @@ public class Tests {
 		assertTrue(ds.getType() == SensorType.DIRT);
 		assertTrue(fs.getType() == SensorType.FLOOR);
 	}
+	
+	@Test
+	public void testGetWestSensor() {
+		WestSensor ws = WestSensor.getInstance();
+		assertNotNull(ws);
+		assertTrue(ws.getClass() == WestSensor.class);
+	}
+	
+	@Test
+	public void testCheckWest() {
+		WestSensor ws = WestSensor.getInstance();
+		boolean obstruction = ws.detect();
+		assertNotNull(obstruction);
+	}
+	
+	@Test
+	public void testGetSouthSensor() {
+		SouthSensor ss = SouthSensor.getInstance();
+		assertNotNull(ss);
+		assertTrue(ss.getClass() == SouthSensor.class);
+	}
+	
+	@Test
+	public void testCheckSouth() {
+		SouthSensor ss = SouthSensor.getInstance();
+		boolean obstruction = ss.detect();
+		assertNotNull(obstruction);
+	}
+	
+	@Test
+	public void testGetNorthSensor() {
+		NorthSensor ns = NorthSensor.getInstance();
+		assertNotNull(ns);
+		assertTrue(ns.getClass() == NorthSensor.class);
+	}
+	
+	@Test
+	public void testCheckNorth() {
+		NorthSensor ns = NorthSensor.getInstance();
+		boolean obstruction = ns.detect();
+		assertNotNull(obstruction);
+	}
+	
+	@Test
+	public void testGetEastSensor() {
+		EastSensor es = EastSensor.getInstance();
+		assertNotNull(es);
+		assertTrue(es.getClass() == EastSensor.class);
+	}
+	
+	@Test
+	public void testCheckEast() {
+		EastSensor es = EastSensor.getInstance();
+		boolean obstruction = es.detect();
+		assertNotNull(obstruction);
+	}
+	
+	
 
 }
