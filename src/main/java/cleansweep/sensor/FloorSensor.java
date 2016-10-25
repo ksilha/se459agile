@@ -1,17 +1,27 @@
 package cleansweep.sensor;
 
+import cleansweep.sensorcontroller.ControllerFacade;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 
-public class FloorSensor extends Sensor{
-
-	public FloorSensor() {
+public abstract class FloorSensor extends Sensor{
+	private FloorType floorSensorType;
+	
+	public FloorSensor(FloorType floorSensorType) {
 		super(SensorType.FLOOR);
-		// TODO Auto-generated constructor stub
+		setFloorSensorType (floorSensorType);
 	}
-
-	@Override
-	public boolean detect() {
-		// TODO Auto-generated method stub
-		return true;
+	
+	public FloorType getFloorSensorType (){
+		return floorSensorType;
+	}
+	
+	
+	private void setFloorSensorType (FloorType floorSensorType){
+		if (floorSensorType == null){
+			//throw exception
+		} else {
+			this.floorSensorType = floorSensorType;
+		}
 	}
 }
