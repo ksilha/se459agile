@@ -43,7 +43,7 @@ public class ControllerFacade {
 		return true;
 	}
 	
-	public static void suckDirt() {
+	public static void clean() {
 		
 	}
 }
