@@ -104,12 +104,12 @@ public class ProcessorImpl implements Processor {
 	@Override
 	public boolean hasTraverseAllCells(Direction dir) {
 		if (dir == Direction.EAST){
-			if (navigation.getEastObstacle() && navigation.getSouthObstacle() && currentCoordinate.column == eastBoundary)
+			if (navigation.checkEastObstacle() && navigation.checkSouthObstacle() && currentCoordinate.column == eastBoundary)
 				return true;
 			else
 				return false;
 		} else if (dir == Direction.WEST){
-			if (navigation.getWestObstacle() && navigation.getSouthObstacle() && currentCoordinate.column == westBoundary)
+			if (navigation.checkWestObstacle() && navigation.checkSouthObstacle() && currentCoordinate.column == westBoundary)
 				return true;
 			else
 				return false;

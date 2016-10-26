@@ -100,22 +100,22 @@ public class NavigationImpl implements Navigation {
 	}
 
 	@Override
-	public boolean getNorthObstacle() {
+	public boolean checkNorthObstacle() {
 		return northObstacle;
 	}
 
 	@Override
-	public boolean getSouthObstacle() {
+	public boolean checkSouthObstacle() {
 		return southObstacle;
 	}
 
 	@Override
-	public boolean getEastObstacle() {
+	public boolean checkEastObstacle() {
 		return eastObstacle;
 	}
 
 	@Override
-	public boolean getWestObstacle() {
+	public boolean checkWestObstacle() {
 		return westObstacle;
 	}
 }
