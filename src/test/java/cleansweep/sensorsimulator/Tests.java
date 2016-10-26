@@ -220,8 +220,8 @@ public class Tests {
 	
 	@Test
 	public void setSensorTypeTest() {
-		Sensor ds = new DirtSensor();
-		Sensor fs = new FloorSensor();
+		Sensor ds = SensorFactory.createDirtSensor();
+		Sensor fs = SensorFactory.createFloorSensor(FloorType.BARE_FLOOR);
 		//Sensor os = new Sensor(SensorType.OBSTACLE);
 		
 		assertTrue(ds.getType() == SensorType.DIRT);
