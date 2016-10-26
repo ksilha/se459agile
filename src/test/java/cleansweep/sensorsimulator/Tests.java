@@ -1,7 +1,12 @@
 package cleansweep.sensorsimulator;
 import org.junit.*;
 import static org.junit.Assert.*;
+
+import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
+import cleansweep.navigation.Navigation;
+import cleansweep.processor.ProcessInit;
+import cleansweep.processor.ProcessorImpl;
 import cleansweep.sensor.*;
 import cleansweep.sensorcontroller.*;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
@@ -279,6 +284,8 @@ public class Tests {
 		assertNotNull(obstruction);
 	}
 	
+	//Processor Tests
 	
+
 
 }
