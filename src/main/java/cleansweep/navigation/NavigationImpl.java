@@ -118,4 +118,11 @@ public class NavigationImpl implements Navigation {
 	public boolean checkWestObstacle() {
 		return westObstacle;
 	}
+	
+	public int distanceToCharger()
+	{
+		int distance = currentCoordinate.column + currentCoordinate.row;
+		
+		return distance;
+	}
 }

@@ -14,5 +14,6 @@ public interface Navigation {
 	boolean checkSouthObstacle ();
 	boolean checkEastObstacle ();
 	boolean checkWestObstacle ();
+	int distanceToCharger();
 
 }
