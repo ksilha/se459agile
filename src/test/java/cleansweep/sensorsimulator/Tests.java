@@ -1,10 +1,11 @@
 package cleansweep.sensorsimulator;
 import org.junit.*;
 import static org.junit.Assert.*;
-
 import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
+import cleansweep.movement.MovementImpl;
 import cleansweep.navigation.Navigation;
+import cleansweep.navigation.NavigationImpl;
 import cleansweep.processor.ProcessInit;
 import cleansweep.processor.ProcessorImpl;
 import cleansweep.sensor.*;
@@ -15,6 +16,7 @@ import cleansweep.sensorsimulator.cell.Cell;
 import cleansweep.sensorsimulator.cell.CellFactory;
 import cleansweep.sensorsimulator.cell.DoorCellImpl;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
+
 
 public class Tests {
 
@@ -284,7 +286,97 @@ public class Tests {
 		assertNotNull(obstruction);
 	}
 	
-	//Processor Tests
+	//Movement Tests
+	
+	@Test
+	public void testMovementImpl() {
+		Controller cl = ControllerFactory.createController("SIMULATION");
+		MovementImpl ml = new MovementImpl(cl);
+		
+		assertNotNull(ml);
+	}
+	
+	//change to correct type of exception 
+	@Test(expected=Exception.class)
+	public void testMovementImplNullException() {
+		MovementImpl ml = new MovementImpl(null);
+	}
+	
+	@Test
+	public void testCreateMovement() throws Exception {
+		Controller cl = ControllerFactory.createController("SIMULATION");
+		Movement m = MovementFactory.createMovement("SIMULATOR",cl);
+		assertNotNull(m);
+	}
+	
+	//change to correct type of exception 
+	@Test(expected=Exception.class)
+	public void testCreateMovementWithNullMovementType() throws Exception {
+		Controller cl = ControllerFactory.createController("SIMULATION");
+		Movement m = MovementFactory.createMovement(null,cl);
+	}
+	
+	//Navigation Tests
+	
+	//FIX THIS
+	@Test
+	public void testGetDirection(){
+		CoordinatesDTO coordinates = new CoordinatesDTO();
+		NorthSensor ns = NorthSensor.getInstance();
+		SouthSensor ss = SouthSensor.getInstance();
+		EastSensor es = EastSensor.getInstance();
+		WestSensor ws = WestSensor.getInstance();
+		
+		
+		NavigationImpl nl = new NavigationImpl(coordinates,ns,ss,es,ws, null);
+		
+	}
+	public void testGetNorthObstacle(){}
+	public void testGetSouthObstacle(){}
+	public void testGetEastObstacle(){}
+	public void testGetWestObstacle(){}
+	
+	
+	
+	
+	//Tests for future classes
+	//batteryTests
+	
+	/*
+	
+	@Test
+	public void testConsumeEnergy() throws Exception {
+		Battery b = new Battery();
+		int energy1 = b.getEnergy();
+		b.consumeEnergy(10);
+		int expectedEnergy = energy1 - 10;
+		assertTrue(b.getEnergy() == expectedEnergy);
+	}
+	
+	@Test
+	public void testRechargeEnergy() throws Exception {
+		Battery b = new Battery();
+		int energy1 = b.getEnergy();
+		b.rechargeEnergy(10);
+		int expectedEnergy = energy1 + 10;
+		assertTrue(b.getEnergy() == expectedEnergy);
+	}
+	
+	//Checks that energy amount can't go below 0
+	@Test(expected = Exception.class) //Change type of exception
+	public void testNegativeEnergyError() throws Exception {
+		Battery b = new Battery();
+		b.consumeEnergy(110);
+		b.getEnergy();
+	}
+	
+	/*
+	@Test
+	public void testGetDistanceToCharger() {
+		int dtc = Navigation.DistanceToCharger();
+		assertNotNull(dtc);
+	}
+	*/
 	
 
 
