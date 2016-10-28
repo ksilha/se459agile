@@ -123,7 +123,7 @@ public class Tests {
 	public void TestFloorTypeDoorway() {
 		Cell doorCell = CellFactory.createCell('D');
 		FloorType ft = doorCell.getFloorType();
-		assertTrue(ft == FloorType.DOORWAY);
+		assertTrue(ft == FloorType.BARE_FLOOR);
 	}
 
 	@Test 
@@ -185,7 +185,7 @@ public class Tests {
 		assertNotNull(ft);
 		assertTrue(ft.equals(FloorType.BARE_FLOOR) ||
 			ft.equals(FloorType.CHARGING_STATION) ||
-			ft.equals(FloorType.DOORWAY) ||
+			ft.equals(FloorType.BARE_FLOOR) ||
 			ft.equals(FloorType.HIGH_PILE_CARPET) ||
 			ft.equals(FloorType.LOW_PILE_CARPET) ||
 			ft.equals(FloorType.INVALID));

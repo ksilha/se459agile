@@ -5,7 +5,7 @@ import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 public class DoorCellImpl implements Cell  
 {
 	Boolean obstruction;
-	private static FloorType floorType = FloorType.DOORWAY;
+	private static FloorType floorType = FloorType.BARE_FLOOR;
 	
 	public DoorCellImpl(Boolean isClosed)
 	{
