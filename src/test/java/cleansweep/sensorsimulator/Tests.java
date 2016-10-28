@@ -1,5 +1,8 @@
 package cleansweep.sensorsimulator;
 import org.junit.*;
+
+import battery.Battery;
+
 import static org.junit.Assert.*;
 import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
@@ -342,17 +345,17 @@ public class Tests {
 	//Tests for future classes
 	//batteryTests
 	
-	/*
-	
 	@Test
-	public void testConsumeEnergy() throws Exception {
+	public void testNewBattery() {
 		Battery b = new Battery();
-		int energy1 = b.getEnergy();
-		b.consumeEnergy(10);
-		int expectedEnergy = energy1 - 10;
-		assertTrue(b.getEnergy() == expectedEnergy);
+		int e = b.getEnergy();
+		assertTrue(e == 100);
+		
 	}
 	
+	@Test
+	public void testConsumeEnergy() {}
+	/*
 	@Test
 	public void testRechargeEnergy() throws Exception {
 		Battery b = new Battery();
