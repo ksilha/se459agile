@@ -309,7 +309,7 @@ public class Tests {
 	public void testCreateMovement() throws Exception {
 		Controller cl = ControllerFactory.createController("SIMULATION");
 		Movement m = MovementFactory.createMovement("SIMULATOR",cl);
-		assertNotNull(m);
+		assertNotNull("Movement m is null", m);
 	}
 	
 	//change to correct type of exception 
@@ -349,12 +349,41 @@ public class Tests {
 	public void testNewBattery() {
 		Battery b = new Battery();
 		int e = b.getEnergy();
-		assertTrue(e == 100);
+		assertTrue("e is " + e +" but should be 100", e == 100);
 		
 	}
 	
+	@Test //FAILS
+	public void testUseEnergy() {
+		Battery b = new Battery();
+		int e1 = b.getEnergy();
+		b.setEnergy(-50);
+		assertTrue( "energy is " + b.getEnergy()  + " but should be 50 ",b.getEnergy() == 50);
+	}
+	
 	@Test
-	public void testConsumeEnergy() {}
+	public void testAddEnergyOver100() { 
+		Battery b = new Battery();
+		int e1 = b.getEnergy();
+		b.setEnergy(50);
+		System.out.println("Energy is" + b.getEnergy());
+		assertTrue( "energy is " + b.getEnergy() + " but should be 100", b.getEnergy() == 100);
+	}
+	
+	@Test
+	public void testAddandSubtractEnergy() {
+		Battery b = new Battery();
+		int e1 = b.getEnergy();
+		b.setEnergy(-50);
+		b.setEnergy(25);
+		System.out.println("Energy is" + b.getEnergy());
+		assert( b.getEnergy() == 75);
+	}
+	
+	
+	
+	
+	
 	/*
 	@Test
 	public void testRechargeEnergy() throws Exception {
