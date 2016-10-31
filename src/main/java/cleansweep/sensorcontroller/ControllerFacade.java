@@ -40,10 +40,10 @@ public class ControllerFacade {
 	}
 	
 	public static Boolean senseDirt() {
-		return true;
+		return controller.senseDirt();
 	}
 	
 	public static void clean() {
-		//
+		controller.clean();
 	}
 }

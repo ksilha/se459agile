@@ -10,4 +10,6 @@ public interface Controller {
 	boolean move(Direction direction);
 	int checkPercentExplored();
 	CoordinatesDTO getCurrentLocation ();
+	Boolean senseDirt();
+	void clean();
 }

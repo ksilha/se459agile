@@ -40,8 +40,16 @@ public class SimulationControllerImpl implements Controller {
 		return 0;
 	}
 
-	@Override
 	public CoordinatesDTO getCurrentLocation() {
 		return floorplan.getCurrentCoordinates();
+	}
+
+	public Boolean senseDirt() {
+		return floorplan.senseDirt();
+	}
+
+	public void clean() {
+		floorplan.clean();
+		
 	}
 }

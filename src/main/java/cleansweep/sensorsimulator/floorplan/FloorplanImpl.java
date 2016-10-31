@@ -55,13 +55,11 @@ public class FloorplanImpl implements Floorplan {
 		currentColumn = coordinates.column;
 	}
 
-	@Override
 	public boolean senseObstruction(CoordinatesDTO coordinates) {
 		Cell cell = grid[coordinates.row][coordinates.column];
 		return cell.isObstruction();
 	}
 
-	@Override
 	public FloorType senseFloorType() {
 		Cell cell = grid[currentRow][currentColumn];
 		
@@ -89,5 +87,15 @@ public class FloorplanImpl implements Floorplan {
 		}
 		
 		return coordinates;
+	}
+
+	public boolean senseDirt() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void clean() {
+		// TODO Auto-generated method stub
+		
 	}
 }
