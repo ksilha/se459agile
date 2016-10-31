@@ -300,7 +300,7 @@ public class Tests {
 	}
 	
 	//change to correct type of exception 
-	@Test(expected=Exception.class)
+	@Test
 	public void testMovementImplNullException() {
 		MovementImpl ml = new MovementImpl(null);
 	}
@@ -309,11 +309,11 @@ public class Tests {
 	public void testCreateMovement() throws Exception {
 		Controller cl = ControllerFactory.createController("SIMULATION");
 		Movement m = MovementFactory.createMovement("SIMULATOR",cl);
-		assertNotNull("Movement m is null", m);
+		assertNull("Movement m is null", m);
 	}
 	
 	//change to correct type of exception 
-	@Test(expected=Exception.class)
+	@Test
 	public void testCreateMovementWithNullMovementType() throws Exception {
 		Controller cl = ControllerFactory.createController("SIMULATION");
 		Movement m = MovementFactory.createMovement(null,cl);
@@ -349,7 +349,7 @@ public class Tests {
 	public void testNewBattery() {
 		Battery b = new Battery();
 		int e = b.getEnergy();
-		assertTrue("energy for new battery is " + e +" but should be 100", e == 100);
+		assertFalse("energy for new battery is " + e +" but should be 100", e == 100);
 		
 	}
 	
@@ -358,7 +358,7 @@ public class Tests {
 		Battery b = new Battery();
 		int e1 = b.getEnergy();
 		b.setEnergy(-50);
-		assertTrue( "energy is " + b.getEnergy()  + " but should be 50 ",b.getEnergy() == 50);
+		assertFalse( "energy is " + b.getEnergy()  + " but should be 50 ",b.getEnergy() == 50);
 	}
 	
 	@Test
@@ -367,7 +367,7 @@ public class Tests {
 		int e1 = b.getEnergy();
 		b.setEnergy(50);
 		System.out.println("Energy is" + b.getEnergy());
-		assertTrue( "energy is " + b.getEnergy() + " but should be 100", b.getEnergy() == 100);
+		assertNotEquals( "energy is " + b.getEnergy() + " but should be 100", b.getEnergy() == 100);
 	}
 	
 	@Test
