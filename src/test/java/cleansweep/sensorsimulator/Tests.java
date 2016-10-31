@@ -19,6 +19,8 @@ import cleansweep.sensorsimulator.cell.Cell;
 import cleansweep.sensorsimulator.cell.CellFactory;
 import cleansweep.sensorsimulator.cell.DoorCellImpl;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
+import cleansweep.vacuum.VacuumSystem;
+import cleansweep.vacuum.VacuumSystemFactory;
 
 
 public class Tests {
@@ -379,6 +381,15 @@ public class Tests {
 		System.out.println("Energy is" + b.getEnergy());
 		assert( b.getEnergy() == 75);
 	}
+	
+	//Vaccuum Tests
+	@Test
+	public void testCreateVaccuum() {
+		VacuumSystem v = VacuumSystemFactory.createVacuum();
+		assertNotNull("Error, VacuumSystem v was not created", v);
+	}
+	
+	
 	
 	
 	
