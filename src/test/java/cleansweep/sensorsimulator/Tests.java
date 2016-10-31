@@ -349,7 +349,7 @@ public class Tests {
 	public void testNewBattery() {
 		Battery b = new Battery();
 		int e = b.getEnergy();
-		assertTrue("e is " + e +" but should be 100", e == 100);
+		assertTrue("energy for new battery is " + e +" but should be 100", e == 100);
 		
 	}
 	
