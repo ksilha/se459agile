@@ -10,4 +10,6 @@ public interface Floorplan {
 	FloorType senseFloorType();
 	boolean senseObstruction(CoordinatesDTO coordinates);
 	CoordinatesDTO calculateMovementCoordinates(Direction direction);
+	boolean senseDirt();
+	void clean();
 }
