@@ -10,7 +10,7 @@ public class SimulationControllerImpl implements Controller {
 	private Floorplan floorplan;
 	
 	public SimulationControllerImpl() {
-		floorplan = FloorplanFactory.createFloorplan("floorplan.txt");
+		floorplan = FloorplanFactory.createFloorplan("floorplan2.txt");
 	}
 
 	public boolean senseObstruction(Direction direction) {

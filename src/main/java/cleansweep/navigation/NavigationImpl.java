@@ -96,8 +96,9 @@ public class NavigationImpl implements Navigation {
 			return Direction.SOUTH;
 		else if (eastObstacle == false && !visitedCoordinatesMap.containsKey(eastCoordinate))
 			return Direction.EAST;
-		
-		return Direction.NORTH;
+		else if (northObstacle == false && !visitedCoordinatesMap.containsKey(northCoordinate))
+			return Direction.NORTH;
+		return null;
 	}
 
 	@Override

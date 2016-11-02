@@ -16,11 +16,11 @@ public class ProcessorImpl implements Processor {
 	private int eastBoundary;
 	private int southBoundary;
 	private int northBoundary;
-	private ArrayList <CoordinatesDTO> path = new ArrayList <CoordinatesDTO> ();
-	private HashMap <CoordinatesDTO, Integer> visitedCoordinatesMap = new HashMap <CoordinatesDTO, Integer> ();
+	private ProcessTracker processTracker;
 	
 	public ProcessorImpl (CoordinatesDTO currentCoordinate, Navigation nav, Movement mov ){
 		checkParameters (currentCoordinate, nav, mov);
+		processTracker = processTracker.getInstance();
 	}
 	
 	
@@ -87,22 +87,16 @@ public class ProcessorImpl implements Processor {
 	}
 
 	@Override
-	public ArrayList<CoordinatesDTO> getPath() {
-		return path;
-	}
-
-	@Override
-	public HashMap<CoordinatesDTO, Integer> getVisitedCoordinatesMap() {
-		return visitedCoordinatesMap;
-	}
-
-	@Override
 	public int shortestDistanceFromChargingStation() {
 		return Math.abs(currentCoordinate.column) + Math.abs(currentCoordinate.row);
 	}
 
 	@Override
-	public boolean hasTraverseAllCells(Direction dir) {
+	public boolean hasTraverseAllCells() {
+		Direction dir = navigation.getDirection();
+		if (dir == null)
+			return true;
+		
 		if (dir == Direction.EAST){
 			if (navigation.checkEastObstacle() && navigation.checkSouthObstacle() && currentCoordinate.column == eastBoundary)
 				return true;
@@ -149,32 +143,13 @@ public class ProcessorImpl implements Processor {
 			// throw exception
 		}
 	}
-	
-	private void addPath (CoordinatesDTO coordinate){
-		if (coordinate != null)
-			path.add(coordinate);
-		else {
-			//throw exception
-		}
-	}
-	
-	private void addToVisitedCoordinatesMap (CoordinatesDTO coordinate){
-		if (coordinate == null){
-			//throw exception
-		} else {
-				if (visitedCoordinatesMap.containsKey(coordinate))
-					visitedCoordinatesMap.put(coordinate, visitedCoordinatesMap.get(coordinate)+1);
-				else
-					visitedCoordinatesMap.put(coordinate, 1);
-			}
-		}
 
 	@Override
-	public CoordinatesDTO getNextCoordinate () {
+	public CoordinatesDTO goToNextCoordinate () {
 		CoordinatesDTO newCoordinate = null;
 		Direction direction = navigation.getDirection();
 		
-		if (hasTraverseAllCells(direction)){
+		if (hasTraverseAllCells()){
 			// back to charging station
 		} else {
 			if (direction == Direction.WEST){
@@ -193,8 +168,8 @@ public class ProcessorImpl implements Processor {
 				movement.moveSouth();
 				newCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column-1);
 			}
-			addToVisitedCoordinatesMap (newCoordinate);
-			addPath (newCoordinate);
+			processTracker.addCoordinateToMap(newCoordinate);
+			processTracker.addPath(newCoordinate);
 		}
 		return newCoordinate;
 	}

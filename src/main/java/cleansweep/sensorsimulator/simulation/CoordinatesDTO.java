@@ -12,5 +12,4 @@ public class CoordinatesDTO {
 		row = rowInput;
 		column = columnInput;
 	}
-	
 }

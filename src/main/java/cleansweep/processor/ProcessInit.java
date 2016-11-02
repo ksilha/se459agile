@@ -37,18 +37,27 @@ public class ProcessInit {
 	private Navigation navigation;
 	private VacuumSystem vacuumSystem;
 	private Movement movement;
+	private ProcessTracker processTracker;
+	private CoordinatesDTO currentCoordinate;
+	private Processor processor;
 	
 	
 	public ProcessInit (){
-		initializeSimulation();
 		createSensors();
-		createNavigation ();
 		createVacuumSystem ();
 		createMovement();
 	}
 	
-	private void initializeSimulation (){
+	public void initializeSimulation (){
 		ControllerFacade.initialize("SIMULATION");
+	}
+	
+	public void startRobot(){
+		createNavigation ();
+		processor =  new ProcessorImpl (currentCoordinate, navigation,movement);
+		while (!processor.hasTraverseAllCells()){
+			processor.goToNextCoordinate();
+		}
 	}
 	
 	private void createSensors (){
@@ -64,9 +73,9 @@ public class ProcessInit {
 	}
 	
 	private void createNavigation (){
-		CoordinatesDTO current = new CoordinatesDTO (0,0);
-		HashMap <CoordinatesDTO, Integer> map= new HashMap<>();
-		navigation = NavigationFactory.createNavigation(current, northSensor, southSensor, eastSensor, westSensor, map);
+		currentCoordinate = processTracker.getCurrentCoordinate();
+		HashMap <CoordinatesDTO,Integer> map = processTracker.getVisitedCoordinatesMap();
+		navigation = NavigationFactory.createNavigation(currentCoordinate, northSensor, southSensor, eastSensor, westSensor, map);
 	}
 	
 	private void createVacuumSystem (){

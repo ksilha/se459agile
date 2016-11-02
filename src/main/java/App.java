@@ -1,5 +1,7 @@
 
 
+import cleansweep.processor.ProcessInit;
+import cleansweep.processor.ProcessTracker;
 import cleansweep.sensorcontroller.ControllerFacade;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorcontroller.ControllerFacade.FloorType;
@@ -12,6 +14,7 @@ public class App
 {
     public static void main( String[] args )
     {
+    	/*
         ControllerFacade.initialize("SIMULATION");
         
         Boolean isObstruction = ControllerFacade.senseObstruction(Direction.NORTH);
@@ -59,5 +62,13 @@ public class App
         
         floorType = ControllerFacade.senseFloorType();
         System.out.println("Floor Type: " + floorType);
+        */
+    	
+    	ProcessInit process = new ProcessInit ();
+    	
+    	process.initializeSimulation();
+    	process.startRobot();
+    	ProcessTracker pt = ProcessTracker.getInstance();
+    	pt.getPath().toString();
     }
 }
