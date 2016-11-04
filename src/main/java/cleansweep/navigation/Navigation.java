@@ -9,11 +9,12 @@ import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 
 public interface Navigation {	
-	Direction getDirection ();
+	Direction getDirection (CoordinatesDTO currentCoor);
 	boolean checkNorthObstacle ();
 	boolean checkSouthObstacle ();
 	boolean checkEastObstacle ();
 	boolean checkWestObstacle ();
 	int distanceToCharger();
+	void resetSensors ();
 
 }

@@ -11,8 +11,8 @@ import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 public class NavigationFactory {
 	
-	public static Navigation createNavigation(CoordinatesDTO current, Sensor northSensor, Sensor southSensor, Sensor eastSensor, Sensor westSensor, HashMap <CoordinatesDTO, Integer> map ){
-		return new NavigationImpl (current, northSensor, southSensor, eastSensor, westSensor, map);
+	public static Navigation createNavigation(){
+		return NavigationImpl.getInstance();
 	}
 
 }

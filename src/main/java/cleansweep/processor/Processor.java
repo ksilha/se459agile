@@ -14,6 +14,6 @@ public interface Processor {
 	int getEastWestDistance ();
 	int getNorthSouthDistance ();
 	int shortestDistanceFromChargingStation ();
-	boolean hasTraverseAllCells ();
-	CoordinatesDTO goToNextCoordinate ();
+	boolean hasTraverseAllCells (Direction dir);
+	void goToNextCoordinate ();
 }

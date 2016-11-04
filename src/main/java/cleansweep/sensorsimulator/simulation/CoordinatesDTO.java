@@ -12,4 +12,9 @@ public class CoordinatesDTO {
 		row = rowInput;
 		column = columnInput;
 	}
+	
+	public String toString(){
+		return "("+row+","+column+")";
+	}
+	
 }

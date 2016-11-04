@@ -34,48 +34,25 @@ public class ProcessInit {
 	private Sensor highCarpetSensor;
 	private Sensor chargingStationSensor;
 	private Sensor bareFloorSensor;
-	private Navigation navigation;
 	private VacuumSystem vacuumSystem;
 	private Movement movement;
-	private ProcessTracker processTracker;
-	private CoordinatesDTO currentCoordinate;
 	private Processor processor;
 	
 	
 	public ProcessInit (){
+		initializeSimulation ();
 		createSensors();
 		createVacuumSystem ();
 		createMovement();
 	}
-	
-	public void initializeSimulation (){
-		ControllerFacade.initialize("SIMULATION");
-	}
-	
-	public void startRobot(){
-		createNavigation ();
-		processor =  new ProcessorImpl (currentCoordinate, navigation,movement);
-		while (!processor.hasTraverseAllCells()){
-			processor.goToNextCoordinate();
-		}
-	}
+
 	
 	private void createSensors (){
 		dirtSensor = SensorFactory.createDirtSensor();
-		eastSensor = SensorFactory.createObstacleSensor(Direction.EAST);
-		westSensor = SensorFactory.createObstacleSensor(Direction.WEST);
-		northSensor = SensorFactory.createObstacleSensor(Direction.NORTH);
-		southSensor = SensorFactory.createObstacleSensor(Direction.SOUTH);
 		bareFloorSensor = SensorFactory.createFloorSensor(FloorType.BARE_FLOOR);
 		lowCarpetSensor = SensorFactory.createFloorSensor(FloorType.LOW_PILE_CARPET);
 		highCarpetSensor = SensorFactory.createFloorSensor(FloorType.HIGH_PILE_CARPET);
 		chargingStationSensor = SensorFactory.createFloorSensor(FloorType.CHARGING_STATION);
-	}
-	
-	private void createNavigation (){
-		currentCoordinate = processTracker.getCurrentCoordinate();
-		HashMap <CoordinatesDTO,Integer> map = processTracker.getVisitedCoordinatesMap();
-		navigation = NavigationFactory.createNavigation(currentCoordinate, northSensor, southSensor, eastSensor, westSensor, map);
 	}
 	
 	private void createVacuumSystem (){
@@ -86,6 +63,12 @@ public class ProcessInit {
 		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
 	}
 	
+	private void initializeSimulation (){
+		ControllerFacade.initialize("SIMULATION");
+	}
 	
-	
+	public void startRobot(){
+		processor =  ProcessorImpl.getInstance();
+		processor.goToNextCoordinate();
+	}
 }

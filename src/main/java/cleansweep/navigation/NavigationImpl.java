@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cleansweep.movement.Movement;
+import cleansweep.processor.ProcessTracker;
 import cleansweep.sensor.EastSensor;
 import cleansweep.sensor.NorthSensor;
 import cleansweep.sensor.Sensor;
+import cleansweep.sensor.SensorFactory;
 import cleansweep.sensor.SouthSensor;
 import cleansweep.sensor.WestSensor;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
@@ -27,51 +29,22 @@ public class NavigationImpl implements Navigation {
 	private EastSensor eastSensor;
 	private WestSensor westSensor;
 	private HashMap <CoordinatesDTO, Integer> visitedCoordinatesMap;
+	private static Navigation navigation;
+	private Direction currentDir = Direction.WEST;
 	
-	
-	public NavigationImpl (CoordinatesDTO current, Sensor northSensor2, Sensor southSensor2, Sensor eastSensor2, Sensor westSensor2, HashMap <CoordinatesDTO, Integer> map ){
-		checkParameters (current, northSensor2, southSensor2, eastSensor2, westSensor2, map);
-		setAllCoordinates ();
-		senseObstaclesFromAllDirections();
+	private NavigationImpl (){
+		eastSensor = (EastSensor) SensorFactory.createObstacleSensor(Direction.EAST);
+		westSensor = (WestSensor) SensorFactory.createObstacleSensor(Direction.WEST);
+		northSensor = (NorthSensor) SensorFactory.createObstacleSensor(Direction.NORTH);
+		southSensor = (SouthSensor) SensorFactory.createObstacleSensor(Direction.SOUTH);
 	}
 	
-	private void checkParameters (CoordinatesDTO current, Sensor northSensor2, Sensor southSensor2, Sensor eastSensor2, Sensor westSensor2, HashMap <CoordinatesDTO, Integer> map){
-		if (current != null)
-			currentCoordinate = current;
-		else{
-			//throw exception
-		}
-		
-		if (northSensor2 != null)
-			this.northSensor = (NorthSensor) northSensor2;
-		else {
-			//throw exception
-		}
-		
-		if (southSensor2 != null)
-			this.southSensor = (SouthSensor) southSensor2;
-		else{
-			//throw exception
-		}
-		
-		if (eastSensor2 != null)
-			this.eastSensor = (EastSensor) eastSensor2;
-		else{
-			//throw exception
-		}
-		
-		if (westSensor2 != null)
-			this.westSensor = (WestSensor) westSensor2;
-		else {
-			//throw exception
-		}
-		
-		if (map != null)
-			visitedCoordinatesMap = map;
-		else {
-			//throw exception
-		}
+	public static Navigation getInstance (){
+		if (navigation == null)
+			return new NavigationImpl ();
+		return navigation;
 	}
+	
 	
 	private void setAllCoordinates(){
 		northCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
@@ -89,16 +62,49 @@ public class NavigationImpl implements Navigation {
 	}			
 
 	@Override
-	public Direction getDirection() {		
-		if (westObstacle == false && !visitedCoordinatesMap.containsKey(westCoordinate))
-			return Direction.WEST;
-		else if (southObstacle == false && !visitedCoordinatesMap.containsKey(southCoordinate) && visitedCoordinatesMap.containsKey(eastCoordinate) )
-			return Direction.SOUTH;
-		else if (eastObstacle == false && !visitedCoordinatesMap.containsKey(eastCoordinate))
-			return Direction.EAST;
-		else if (northObstacle == false && !visitedCoordinatesMap.containsKey(northCoordinate))
-			return Direction.NORTH;
-		return null;
+	public Direction getDirection(CoordinatesDTO currentCoor) {
+		//System.out.println(visitedCoordinatesMap.toString());
+		currentCoordinate = currentCoor;
+		setAllCoordinates();
+		senseObstaclesFromAllDirections();
+		System.out.println("current direction"+currentDir);
+		
+		if (currentDir == Direction.WEST){
+			if (westObstacle == false)
+				return Direction.WEST;
+			else{
+				if (northObstacle == true && southObstacle == true){
+					return Direction.WEST;
+				} else if (northObstacle == true && southObstacle == false)
+					return Direction.SOUTH;
+				else if (northObstacle == false && southObstacle == true){
+					currentDir = Direction.EAST;
+					return Direction.EAST;
+				}
+				else {
+					currentDir = Direction.EAST;
+					return Direction.SOUTH;
+				}
+			}
+		}
+			else if (currentDir == Direction.EAST){
+				if (eastObstacle == false)
+					return Direction.EAST;
+				else{
+					if (northObstacle == true && southObstacle == true){
+						return Direction.EAST;
+					} else if (northObstacle == true && southObstacle == false)
+						return Direction.SOUTH;
+					else if (northObstacle == false && southObstacle == true)
+						return Direction.EAST;
+					else {
+						currentDir = Direction.WEST;
+						return Direction.SOUTH;
+					}
+				}
+			}
+		
+		return null;	
 	}
 
 	@Override
@@ -108,7 +114,7 @@ public class NavigationImpl implements Navigation {
 
 	@Override
 	public boolean checkSouthObstacle() {
-		return southObstacle;
+		return southSensor.detect();
 	}
 
 	@Override
@@ -118,7 +124,7 @@ public class NavigationImpl implements Navigation {
 
 	@Override
 	public boolean checkWestObstacle() {
-		return westObstacle;
+		return westSensor.detect();
 	}
 	
 	public int distanceToCharger()
@@ -126,5 +132,15 @@ public class NavigationImpl implements Navigation {
 		int distance = currentCoordinate.column + currentCoordinate.row;
 		
 		return distance;
+	}
+
+	@Override
+	public void resetSensors() {
+		// TODO Auto-generated method stub
+		northObstacle = false;
+		southObstacle = false;
+		eastObstacle = false;
+		westObstacle = false;
+		
 	}
 }

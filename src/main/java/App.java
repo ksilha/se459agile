@@ -1,5 +1,7 @@
 
 
+import cleansweep.movement.Movement;
+import cleansweep.movement.MovementFactory;
 import cleansweep.processor.ProcessInit;
 import cleansweep.processor.ProcessTracker;
 import cleansweep.sensorcontroller.ControllerFacade;
@@ -64,11 +66,16 @@ public class App
         System.out.println("Floor Type: " + floorType);
         */
     	
+    	
+   
     	ProcessInit process = new ProcessInit ();
     	
-    	process.initializeSimulation();
     	process.startRobot();
+    	
     	ProcessTracker pt = ProcessTracker.getInstance();
-    	pt.getPath().toString();
+    	System.out.println(pt.getPath().toString());
+    
+    	
+    	
     }
 }

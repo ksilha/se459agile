@@ -8,6 +8,7 @@ import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
 import cleansweep.movement.MovementImpl;
 import cleansweep.navigation.Navigation;
+import cleansweep.navigation.NavigationFactory;
 import cleansweep.navigation.NavigationImpl;
 import cleansweep.processor.ProcessInit;
 import cleansweep.processor.ProcessorImpl;
@@ -327,13 +328,8 @@ public class Tests {
 	@Test
 	public void testGetDirection(){
 		CoordinatesDTO coordinates = new CoordinatesDTO();
-		NorthSensor ns = NorthSensor.getInstance();
-		SouthSensor ss = SouthSensor.getInstance();
-		EastSensor es = EastSensor.getInstance();
-		WestSensor ws = WestSensor.getInstance();
 		
-		
-		NavigationImpl nl = new NavigationImpl(coordinates,ns,ss,es,ws, null);
+		NavigationImpl nl = (NavigationImpl) NavigationFactory.createNavigation();
 		
 	}
 	public void testGetNorthObstacle(){}

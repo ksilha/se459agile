@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cleansweep.movement.Movement;
+import cleansweep.movement.MovementFactory;
 import cleansweep.navigation.Navigation;
+import cleansweep.navigation.NavigationFactory;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
@@ -17,24 +19,21 @@ public class ProcessorImpl implements Processor {
 	private int southBoundary;
 	private int northBoundary;
 	private ProcessTracker processTracker;
+	private static Processor processor;
 	
-	public ProcessorImpl (CoordinatesDTO currentCoordinate, Navigation nav, Movement mov ){
-		checkParameters (currentCoordinate, nav, mov);
+	private ProcessorImpl (){
+		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
 		processTracker = processTracker.getInstance();
+		navigation = NavigationFactory.createNavigation();
 	}
 	
+	public static Processor getInstance () {
+		if (processor == null)
+			return new ProcessorImpl ();
+		return processor;
+	}
 	
-	private void checkParameters (CoordinatesDTO current, Navigation nav, Movement mov){
-		if (currentCoordinate == null){
-			//throw exception
-		} else 
-			currentCoordinate = current;
-		
-		if (nav == null ){
-			//throw exception
-		} else 
-			navigation = nav;
-		
+	private void checkParameters (Movement mov){
 		if (mov == null){
 			//throw exception
 		} else
@@ -45,7 +44,7 @@ public class ProcessorImpl implements Processor {
 		if (dir == null){
 			//Throw exception
 		} else{
-			if (dir == Direction.WEST && rowOrColumn < westBoundary )
+			if (dir == Direction.WEST && rowOrColumn < westBoundary && navigation.checkWestObstacle())
 					westBoundary = rowOrColumn;
 			else if (dir == Direction.EAST && rowOrColumn > eastBoundary)
 					eastBoundary = rowOrColumn;
@@ -92,24 +91,24 @@ public class ProcessorImpl implements Processor {
 	}
 
 	@Override
-	public boolean hasTraverseAllCells() {
-		Direction dir = navigation.getDirection();
-		if (dir == null)
+	public boolean hasTraverseAllCells(Direction dir) {
+		currentCoordinate = processTracker.getCurrentCoordinate();
+		if (dir==null)
 			return true;
 		
 		if (dir == Direction.EAST){
-			if (navigation.checkEastObstacle() && navigation.checkSouthObstacle() && currentCoordinate.column == eastBoundary)
+			if (navigation.checkEastObstacle() && navigation.checkSouthObstacle() && currentCoordinate.row == eastBoundary)
 				return true;
 			else
 				return false;
 		} else if (dir == Direction.WEST){
-			if (navigation.checkWestObstacle() && navigation.checkSouthObstacle() && currentCoordinate.column == westBoundary)
+			if (navigation.checkWestObstacle() && navigation.checkSouthObstacle()&& currentCoordinate.row == westBoundary){
 				return true;
+			}
 			else
 				return false;
 		}
 		return false;
-
 	}
 	
 	private void setWestBoundary(int column) {
@@ -145,32 +144,39 @@ public class ProcessorImpl implements Processor {
 	}
 
 	@Override
-	public CoordinatesDTO goToNextCoordinate () {
+	public void goToNextCoordinate () {
 		CoordinatesDTO newCoordinate = null;
-		Direction direction = navigation.getDirection();
-		
-		if (hasTraverseAllCells()){
-			// back to charging station
-		} else {
+		currentCoordinate = processTracker.getCurrentCoordinate();
+		Direction direction = navigation.getDirection(currentCoordinate);
+			while (!hasTraverseAllCells(direction))
+			{			
 			if (direction == Direction.WEST){
 				movement.moveWest();
 				newCoordinate = new CoordinatesDTO(currentCoordinate.row-1, currentCoordinate.column);
+				updateBoundary (Direction.WEST, newCoordinate.row);
+				System.out.println(newCoordinate.toString());
 			}
 			else if (direction == Direction.EAST){
 				movement.moveEast();
 				newCoordinate = new CoordinatesDTO (currentCoordinate.row+1, currentCoordinate.column);
+				updateBoundary (Direction.EAST, newCoordinate.row);
+				System.out.println(newCoordinate.toString());
 			}
 			else if (direction == Direction.NORTH){
 				movement.moveNorth();
 				newCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
+				updateBoundary (Direction.EAST, newCoordinate.column);
+				System.out.println(newCoordinate.toString());
 			}
 			else if (direction == Direction.SOUTH){
 				movement.moveSouth();
 				newCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column-1);
+				System.out.println(newCoordinate.toString());
 			}
+			
 			processTracker.addCoordinateToMap(newCoordinate);
 			processTracker.addPath(newCoordinate);
-		}
-		return newCoordinate;
+			direction = navigation.getDirection(newCoordinate);
+			}
 	}
 }
