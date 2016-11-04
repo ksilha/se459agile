@@ -13,9 +13,7 @@ public interface Processor {
 	int getSouthBoundary ();
 	int getEastWestDistance ();
 	int getNorthSouthDistance ();
-	ArrayList<CoordinatesDTO> getPath ();
-	HashMap <CoordinatesDTO, Integer> getVisitedCoordinatesMap ();
 	int shortestDistanceFromChargingStation ();
-	boolean hasTraverseAllCells (Direction direction);
-	CoordinatesDTO getNextCoordinate ();
+	boolean hasTraverseAllCells ();
+	CoordinatesDTO goToNextCoordinate ();
 }

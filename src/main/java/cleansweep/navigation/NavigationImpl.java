@@ -6,6 +6,7 @@ import java.util.HashMap;
 import cleansweep.movement.Movement;
 import cleansweep.sensor.EastSensor;
 import cleansweep.sensor.NorthSensor;
+import cleansweep.sensor.Sensor;
 import cleansweep.sensor.SouthSensor;
 import cleansweep.sensor.WestSensor;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
@@ -28,39 +29,39 @@ public class NavigationImpl implements Navigation {
 	private HashMap <CoordinatesDTO, Integer> visitedCoordinatesMap;
 	
 	
-	public NavigationImpl (CoordinatesDTO current, NorthSensor northSensor, SouthSensor southSensor, EastSensor eastSensor, WestSensor westSensor, HashMap <CoordinatesDTO, Integer> map ){
-		checkParameters (current, northSensor, southSensor, eastSensor, westSensor, map);
+	public NavigationImpl (CoordinatesDTO current, Sensor northSensor2, Sensor southSensor2, Sensor eastSensor2, Sensor westSensor2, HashMap <CoordinatesDTO, Integer> map ){
+		checkParameters (current, northSensor2, southSensor2, eastSensor2, westSensor2, map);
 		setAllCoordinates ();
 		senseObstaclesFromAllDirections();
 	}
 	
-	private void checkParameters (CoordinatesDTO current, NorthSensor northSensor, SouthSensor southSensor, EastSensor eastSensor, WestSensor westSensor, HashMap <CoordinatesDTO, Integer> map){
+	private void checkParameters (CoordinatesDTO current, Sensor northSensor2, Sensor southSensor2, Sensor eastSensor2, Sensor westSensor2, HashMap <CoordinatesDTO, Integer> map){
 		if (current != null)
 			currentCoordinate = current;
 		else{
 			//throw exception
 		}
 		
-		if (northSensor != null)
-			this.northSensor = northSensor;
+		if (northSensor2 != null)
+			this.northSensor = (NorthSensor) northSensor2;
 		else {
 			//throw exception
 		}
 		
-		if (southSensor != null)
-			this.southSensor = southSensor;
+		if (southSensor2 != null)
+			this.southSensor = (SouthSensor) southSensor2;
 		else{
 			//throw exception
 		}
 		
-		if (eastSensor != null)
-			this.eastSensor = eastSensor;
+		if (eastSensor2 != null)
+			this.eastSensor = (EastSensor) eastSensor2;
 		else{
 			//throw exception
 		}
 		
-		if (westSensor != null)
-			this.westSensor = westSensor;
+		if (westSensor2 != null)
+			this.westSensor = (WestSensor) westSensor2;
 		else {
 			//throw exception
 		}
@@ -95,8 +96,9 @@ public class NavigationImpl implements Navigation {
 			return Direction.SOUTH;
 		else if (eastObstacle == false && !visitedCoordinatesMap.containsKey(eastCoordinate))
 			return Direction.EAST;
-		
-		return Direction.NORTH;
+		else if (northObstacle == false && !visitedCoordinatesMap.containsKey(northCoordinate))
+			return Direction.NORTH;
+		return null;
 	}
 
 	@Override

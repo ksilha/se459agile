@@ -301,7 +301,7 @@ public class Tests {
 	@Test
 	public void testMovementImpl() {
 		Controller cl = ControllerFactory.createController("SIMULATION");
-		MovementImpl ml = new MovementImpl(cl);
+		MovementImpl ml = new MovementImpl();
 		
 		assertNotNull(ml);
 	}
@@ -309,13 +309,13 @@ public class Tests {
 	//change to correct type of exception 
 	@Test
 	public void testMovementImplNullException() {
-		MovementImpl ml = new MovementImpl(null);
+		MovementImpl ml = new MovementImpl();
 	}
 	
 	@Test
 	public void testCreateMovement() throws Exception {
 		Controller cl = ControllerFactory.createController("SIMULATION");
-		Movement m = MovementFactory.createMovement("SIMULATOR",cl);
+		Movement m = MovementFactory.createMovement("SIMULATOR");
 		assertNull("Movement m is null", m);
 	}
 	
@@ -323,7 +323,7 @@ public class Tests {
 	@Test
 	public void testCreateMovementWithNullMovementType() throws Exception {
 		Controller cl = ControllerFactory.createController("SIMULATION");
-		Movement m = MovementFactory.createMovement(null,cl);
+		Movement m = MovementFactory.createMovement(null);
 	}
 	
 	//Navigation Tests
