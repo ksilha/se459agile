@@ -26,4 +26,9 @@ public class BatteryInst {
 			throw new Exception("Charge cannot be over 100");
 		}
 	}
+	
+	public void resetEnergy()
+	{
+		energy = 100;
+	}
 }

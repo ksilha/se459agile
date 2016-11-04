@@ -2,6 +2,11 @@ package battery;
 
 public class Battery {
 	BatteryInst batteryInstance = BatteryInst.getInstance();
+	
+	public Battery()
+	{
+		batteryInstance.resetEnergy();
+	}
 	public int getEnergy()
 	{
 		return batteryInstance.getEnergy();
