@@ -6,7 +6,7 @@ public class Battery {
 	{
 		return batteryInstance.getEnergy();
 	}
-	public void setEnergy(int energyChange)
+	public void setEnergy(int energyChange) throws Exception
 	{
 		batteryInstance.setEnergy(energyChange);
 	}

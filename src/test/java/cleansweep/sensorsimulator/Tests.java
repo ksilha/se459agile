@@ -2,12 +2,17 @@ package cleansweep.sensorsimulator;
 import org.junit.*;
 
 import battery.Battery;
+import battery.DischargeBattery;
 
 import static org.junit.Assert.*;
+
+import java.util.HashMap;
+
 import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
 import cleansweep.movement.MovementImpl;
 import cleansweep.navigation.Navigation;
+import cleansweep.navigation.NavigationFactory;
 import cleansweep.navigation.NavigationImpl;
 import cleansweep.processor.ProcessInit;
 import cleansweep.processor.ProcessorImpl;
@@ -323,7 +328,8 @@ public class Tests {
 	
 	//Navigation Tests
 	
-	//FIX THIS
+	//FIX THIS 
+	/*
 	@Test
 	public void testGetDirection(){
 		CoordinatesDTO coordinates = new CoordinatesDTO();
@@ -332,36 +338,45 @@ public class Tests {
 		EastSensor es = EastSensor.getInstance();
 		WestSensor ws = WestSensor.getInstance();
 		
+		Navigation nl = NavigationFactory.createNavigation(coordinates, ns, ss, es, ws, null) ;
+		Direction d = nl.getDirection();
 		
-		NavigationImpl nl = new NavigationImpl(coordinates,ns,ss,es,ws, null);
-		
+		assertNotNull("Direction is null", d);
 	}
 	public void testGetNorthObstacle(){}
 	public void testGetSouthObstacle(){}
 	public void testGetEastObstacle(){}
 	public void testGetWestObstacle(){}
+	*/
 	
-	
-	
-	
-	//Tests for future classes
-	//batteryTests
-	
+	//NEW Battery Tests
 	@Test
 	public void testNewBattery() {
 		Battery b = new Battery();
 		int e = b.getEnergy();
-		assertFalse("energy for new battery is " + e +" but should be 100", e == 100);
-		
+		assertEquals(e,100);
 	}
 	
-	@Test //FAILS
-	public void testUseEnergy() {
+	@Test
+	public void testUseEnergy() throws Exception {
 		Battery b = new Battery();
-		int e1 = b.getEnergy();
+		int e = b.getEnergy();
 		b.setEnergy(-50);
-		assertFalse( "energy is " + b.getEnergy()  + " but should be 50 ",b.getEnergy() == 50);
+		assertEquals("Energy is " + b.getEnergy() + " but should be 50", b.getEnergy(), 50);
 	}
+	
+	@Test(expected=Exception.class)
+	
+	public void addEnergyOver100() throws Exception {
+		Battery b = new Battery() ;
+		int e1 = b.getEnergy();
+		b.setEnergy(101);
+	}
+
+	
+	
+	//OLD Battery Tests
+	/*
 	
 	@Test
 	public void testAddEnergyOver100() { 
@@ -381,6 +396,18 @@ public class Tests {
 		System.out.println("Energy is" + b.getEnergy());
 		assert( b.getEnergy() == 75);
 	}
+	
+	@Test
+	public void testDischargeBattery() {
+		Battery b2 = new DischargeBattery();
+		int energy1 = b2.getEnergy();
+		System.out.println("b2 energy1 is " + energy1);
+		b2.setEnergy(25);
+		System.out.println("b2 energy2 is " + b2.getEnergy());
+
+		
+	}
+	*/
 	
 	//Vaccuum Tests
 	@Test
@@ -444,40 +471,4 @@ public class Tests {
 		VacuumSystem v = VacuumSystemFactory.createVacuum();
 		assertEquals("Dirt capacity is " + v.getCapacity() + " but should be 50", v.getCapacity(), 50);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	@Test
-	public void testRechargeEnergy() throws Exception {
-		Battery b = new Battery();
-		int energy1 = b.getEnergy();
-		b.rechargeEnergy(10);
-		int expectedEnergy = energy1 + 10;
-		assertTrue(b.getEnergy() == expectedEnergy);
-	}
-	
-	//Checks that energy amount can't go below 0
-	@Test(expected = Exception.class) //Change type of exception
-	public void testNegativeEnergyError() throws Exception {
-		Battery b = new Battery();
-		b.consumeEnergy(110);
-		b.getEnergy();
-	}
-	
-	/*
-	@Test
-	public void testGetDistanceToCharger() {
-		int dtc = Navigation.DistanceToCharger();
-		assertNotNull(dtc);
-	}
-	*/
-	
-
-
 }

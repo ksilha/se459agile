@@ -19,8 +19,11 @@ public class BatteryInst {
 		return energy;
 	}
 
-	public void setEnergy(int amount)
+	public void setEnergy(int amount) throws Exception
 	{
 		energy += amount;
+		if (energy > 100) {
+			throw new Exception("Charge cannot be over 100");
+		}
 	}
 }
