@@ -167,8 +167,8 @@ public class Tests {
 		assertTrue(chargeCell.isObstruction() == false);
 	}
 */
-//ControllerFacade Tests
-
+//ControllerFacade Tests -- MOVED
+/*
 	@Test
 	public void testSenseObstruction() {
 		ControllerFacade.initialize("SIMULATION");
@@ -224,7 +224,7 @@ public class Tests {
 		CoordinatesDTO cl = ControllerFacade.currentLocation();
 		assertNotNull(cl);
 	}
-
+*/
 //Sensor Tests
 	
 	@Test
