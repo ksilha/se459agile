@@ -1,13 +1,9 @@
 package cleansweep.sensorsimulator;
 import org.junit.*;
-
 import battery.Battery;
 import battery.DischargeBattery;
-
 import static org.junit.Assert.*;
-
 import java.util.HashMap;
-
 import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
 import cleansweep.movement.MovementImpl;
@@ -30,7 +26,8 @@ import cleansweep.vacuum.VacuumSystemFactory;
 
 public class Tests {
 
-//WallCellImpl Tests
+//WallCellImpl Tests -- MOVED
+/*	
 
 	@Test
 	public void testFloorTypeWall1() {
@@ -71,7 +68,7 @@ public class Tests {
 		assertTrue(wallCell.isObstruction());
 	}
 
-//StairsCellImp Tests
+//StairsCellImp Tests -- MOVED
 
 	@Test
 	public void testIsObstructionStairs() {
@@ -86,7 +83,7 @@ public class Tests {
 		assertTrue(ft == FloorType.INVALID);
 	}
 
-//FloorCellImplTests
+//FloorCellImplTests -- MOVED
 
 	@Test
 	public void testFloorTypeHighCarpet() {
@@ -127,7 +124,7 @@ public class Tests {
 		assertTrue(floorCell.isObstruction() == false);
 	}
 
-//DoorCellImpl Tests
+//DoorCellImpl Tests -- MOVED
 
 	@Test
 	public void TestFloorTypeDoorway() {
@@ -155,7 +152,7 @@ public class Tests {
 		assertTrue(doorCell.isObstruction() == false);
 	}
 
-//ChargingBaseCellImpl Tests
+//ChargingBaseCellImpl Tests -- MOVED
 
 	@Test
 	public void testChargingBaseCellGetFloorType() {
@@ -169,7 +166,7 @@ public class Tests {
 		Cell chargeCell = CellFactory.createCell('C');
 		assertTrue(chargeCell.isObstruction() == false);
 	}
-
+*/
 //ControllerFacade Tests
 
 	@Test
@@ -295,7 +292,8 @@ public class Tests {
 		assertNotNull(obstruction);
 	}
 	
-	//Movement Tests
+	//Movement Tests -- MOVED
+	/*
 	
 	@Test
 	public void testMovementImpl() {
@@ -320,7 +318,8 @@ public class Tests {
 		Controller cl = ControllerFactory.createController("SIMULATION");
 		Movement m = MovementFactory.createMovement(null);
 	}
-	
+	*/
+	/*MOVED
 	//Battery Tests
 	@Test
 	public void testNewBattery() {
@@ -343,7 +342,7 @@ public class Tests {
 		int e1 = b.getEnergy();
 		b.setEnergy(101);
 	}
-
+*/
 	//Vaccuum Tests
 	@Test
 	public void testCreateVaccuum() {
