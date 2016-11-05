@@ -1,4 +1,4 @@
-package cleensweep.movementTest;
+package cleansweep.movementTest;
 
 import static org.junit.Assert.*;
 

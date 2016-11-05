@@ -1,4 +1,4 @@
-package cleensweep.sensorcontrollerTest;
+package cleansweep.sensorcontrollerTest;
 
 import static org.junit.Assert.*;
 

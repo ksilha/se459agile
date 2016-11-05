@@ -1,4 +1,4 @@
-package cleensweep.sensorsimulator.cellTest;
+package cleansweep.sensorsimulator.cellTest;
 
 import static org.junit.Assert.*;
 

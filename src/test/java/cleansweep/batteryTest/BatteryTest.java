@@ -1,8 +1,9 @@
-package batteryTest;
+package cleansweep.batteryTest;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import battery.Battery;
+
+import cleansweep.battery.Battery;
 
 public class BatteryTest {
 	

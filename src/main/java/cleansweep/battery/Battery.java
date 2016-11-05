@@ -1,4 +1,4 @@
-package battery;
+package cleansweep.battery;
 
 public class Battery {
 	BatteryInst batteryInstance = BatteryInst.getInstance();

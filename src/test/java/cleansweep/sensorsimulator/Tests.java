@@ -1,9 +1,11 @@
 package cleansweep.sensorsimulator;
 import org.junit.*;
-import battery.Battery;
-import battery.DischargeBattery;
+
 import static org.junit.Assert.*;
 import java.util.HashMap;
+
+import cleansweep.battery.Battery;
+import cleansweep.battery.DischargeBattery;
 import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
 import cleansweep.movement.MovementImpl;

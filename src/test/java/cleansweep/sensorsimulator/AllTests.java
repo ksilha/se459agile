@@ -2,18 +2,13 @@ package cleansweep.sensorsimulator;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import cleensweep.movementTest.*;
-import cleensweep.navigationTest.NavigationFactoryTest;
-import cleensweep.navigationTest.NavigationImplTest;
-import cleensweep.sensorcontrollerTest.ControllerFacadeTest;
-import cleensweep.sensorcontrollerTest.ControllerFactoryTest;
-import cleensweep.sensorsimulator.cellTest.ChargingBaseCellImplTest;
-import cleensweep.sensorsimulator.cellTest.DoorCellImplTest;
-import cleensweep.sensorsimulator.cellTest.FloorCellImplTest;
-import cleensweep.sensorsimulator.cellTest.StairsCellImplTest;
-import cleensweep.sensorsimulator.cellTest.WallCellImplTest;
-import batteryTest.*;
 
+import cleansweep.batteryTest.*;
+import cleansweep.movementTest.*;
+import cleansweep.navigationTest.*;
+import cleansweep.sensorTest.*;
+import cleansweep.sensorcontrollerTest.*;
+import cleansweep.sensorsimulator.cellTest.*;
 @RunWith(Suite.class)
 @SuiteClasses({ 
         MovementFactoryTest.class, 
@@ -27,7 +22,17 @@ import batteryTest.*;
         StairsCellImplTest.class,
         WallCellImplTest.class,
         ControllerFacadeTest.class,
-        ControllerFactoryTest.class})
+        ControllerFactoryTest.class,
+        BareFloorSensorTest.class,
+        ChargingStationSensorTest.class,
+        DirtSensorTest.class,
+        NorthSensorTest.class,
+        SouthSensorTest.class,
+        EastSensorTest.class,
+        WestSensorTest.class,
+        HighCarpetSensorTest.class,
+        LowCarpetSensorTest.class,
+        })
 
 public class AllTests {
 

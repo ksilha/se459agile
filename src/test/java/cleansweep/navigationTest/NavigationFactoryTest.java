@@ -1,4 +1,4 @@
-package cleensweep.navigationTest;
+package cleansweep.navigationTest;
 
 import java.util.HashMap;
 
