@@ -42,7 +42,7 @@ public class ProcessInit {
 	private Processor processor;
 	
 	
-	public ProcessInit (){
+	public ProcessInit () throws Exception{
 		createSensors();
 		createVacuumSystem ();
 		createMovement();
@@ -82,7 +82,7 @@ public class ProcessInit {
 		vacuumSystem = VacuumSystemFactory.createVacuum();
 	}
 	
-	private void createMovement(){
+	private void createMovement() throws Exception{
 		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
 	}
 	

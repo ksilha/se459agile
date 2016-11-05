@@ -234,7 +234,6 @@ public class Tests {
 	public void setSensorTypeTest() {
 		Sensor ds = SensorFactory.createDirtSensor();
 		Sensor fs = SensorFactory.createFloorSensor(FloorType.BARE_FLOOR);
-		//Sensor os = new Sensor(SensorType.OBSTACLE);
 		
 		assertTrue(ds.getType() == SensorType.DIRT);
 		assertTrue(fs.getType() == SensorType.FLOOR);
@@ -306,11 +305,7 @@ public class Tests {
 		assertNotNull(ml);
 	}
 	
-	//change to correct type of exception 
-	@Test
-	public void testMovementImplNullException() {
-		MovementImpl ml = new MovementImpl();
-	}
+
 	
 	@Test
 	public void testCreateMovement() throws Exception {
@@ -326,30 +321,7 @@ public class Tests {
 		Movement m = MovementFactory.createMovement(null);
 	}
 	
-	//Navigation Tests
-	
-	//FIX THIS 
-	/*
-	@Test
-	public void testGetDirection(){
-		CoordinatesDTO coordinates = new CoordinatesDTO();
-		NorthSensor ns = NorthSensor.getInstance();
-		SouthSensor ss = SouthSensor.getInstance();
-		EastSensor es = EastSensor.getInstance();
-		WestSensor ws = WestSensor.getInstance();
-		
-		Navigation nl = NavigationFactory.createNavigation(coordinates, ns, ss, es, ws, null) ;
-		Direction d = nl.getDirection();
-		
-		assertNotNull("Direction is null", d);
-	}
-	public void testGetNorthObstacle(){}
-	public void testGetSouthObstacle(){}
-	public void testGetEastObstacle(){}
-	public void testGetWestObstacle(){}
-	*/
-	
-	//NEW Battery Tests
+	//Battery Tests
 	@Test
 	public void testNewBattery() {
 		Battery b = new Battery();
@@ -358,7 +330,7 @@ public class Tests {
 	}
 	
 	@Test
-	public void testUseEnergy() throws Exception {
+	public void testSetEnergy() throws Exception {
 		Battery b = new Battery();
 		int e = b.getEnergy();
 		b.setEnergy(-50);
@@ -366,49 +338,12 @@ public class Tests {
 	}
 	
 	@Test(expected=Exception.class)
-	
-	public void addEnergyOver100() throws Exception {
+		public void addEnergyOver100() throws Exception {
 		Battery b = new Battery() ;
 		int e1 = b.getEnergy();
 		b.setEnergy(101);
 	}
 
-	
-	
-	//OLD Battery Tests
-	/*
-	
-	@Test
-	public void testAddEnergyOver100() { 
-		Battery b = new Battery();
-		int e1 = b.getEnergy();
-		b.setEnergy(50);
-		System.out.println("Energy is" + b.getEnergy());
-		assertNotEquals( "energy is " + b.getEnergy() + " but should be 100", b.getEnergy() == 100);
-	}
-	
-	@Test
-	public void testAddandSubtractEnergy() {
-		Battery b = new Battery();
-		int e1 = b.getEnergy();
-		b.setEnergy(-50);
-		b.setEnergy(25);
-		System.out.println("Energy is" + b.getEnergy());
-		assert( b.getEnergy() == 75);
-	}
-	
-	@Test
-	public void testDischargeBattery() {
-		Battery b2 = new DischargeBattery();
-		int energy1 = b2.getEnergy();
-		System.out.println("b2 energy1 is " + energy1);
-		b2.setEnergy(25);
-		System.out.println("b2 energy2 is " + b2.getEnergy());
-
-		
-	}
-	*/
-	
 	//Vaccuum Tests
 	@Test
 	public void testCreateVaccuum() {
