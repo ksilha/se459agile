@@ -60,7 +60,7 @@ public class ProcessInit {
 		}
 	}
 	
-	private void createSensors (){
+	private void createSensors () throws Exception{
 		dirtSensor = SensorFactory.createDirtSensor();
 		eastSensor = SensorFactory.createObstacleSensor(Direction.EAST);
 		westSensor = SensorFactory.createObstacleSensor(Direction.WEST);

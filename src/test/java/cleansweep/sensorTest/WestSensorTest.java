@@ -1,6 +1,7 @@
 package cleansweep.sensorTest;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -8,9 +9,11 @@ import cleansweep.sensor.WestSensor;
 
 public class WestSensorTest {
 
+	@Test
 	public void getInstanceTest() {
 		WestSensor e = WestSensor.getInstance();
-		assertNotNull(e);
+		assertTrue(e.getClass() == WestSensor.class);
+
 	}
 	
 	@Test
