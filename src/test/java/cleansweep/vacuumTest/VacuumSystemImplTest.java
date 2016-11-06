@@ -1,7 +1,6 @@
 package cleansweep.vacuumTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -29,7 +28,7 @@ public class VacuumSystemImplTest {
 	}
 	
 	@Test
-	public void testIsEmpty() {
+	public void isEmptyTest() {
 		VacuumSystem v = VacuumSystemFactory.createVacuum();
 		assertTrue(v.isEmpty());
 
@@ -63,5 +62,14 @@ public class VacuumSystemImplTest {
 	public void testGetDirtCapacity() {
 		VacuumSystem v = VacuumSystemFactory.createVacuum();
 		assertEquals("Dirt capacity is " + v.getCapacity() + " but should be 50", v.getCapacity(), 50);
+	}
+	
+	@Test
+	public void isEmptyTest2() {
+		VacuumSystem v = VacuumSystemFactory.createVacuum();
+		v.clean();
+		assertFalse(v.isEmpty());
+
+		
 	}
 }
