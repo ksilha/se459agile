@@ -9,7 +9,7 @@ public class SensorFactory {
 		return DirtSensor.getInstance();
 	}
 	
-	public static Sensor createObstacleSensor (Direction direction){
+	public static Sensor createObstacleSensor (Direction direction) throws Exception{
 		switch (direction) {
 			case EAST:
 				return EastSensor.getInstance();
@@ -21,11 +21,12 @@ public class SensorFactory {
 				return SouthSensor.getInstance();
 			default:
 				//throw exception
+				throw new Exception();
 		}
-		return null;
+		//return null;
 	}
 	
-	public static Sensor createFloorSensor (FloorType floorType){
+	public static Sensor createFloorSensor (FloorType floorType) throws Exception{
 		switch (floorType) {
 		case BARE_FLOOR:
 			return BareFloorSensor.getInstance();
@@ -37,8 +38,9 @@ public class SensorFactory {
 			return ChargingStationSensor.getInstance();
 		default:
 			//throw exception
+			throw new Exception();
 		}
-		return null;
+		//return null;
 	}
 	
 }

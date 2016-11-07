@@ -39,7 +39,7 @@ public class ProcessInit {
 	private Processor processor;
 	
 	
-	public ProcessInit (){
+	public ProcessInit () throws Exception{
 		initializeSimulation ();
 		createSensors();
 		createVacuumSystem ();
@@ -47,7 +47,7 @@ public class ProcessInit {
 	}
 
 	
-	private void createSensors (){
+	private void createSensors () throws Exception{
 		dirtSensor = SensorFactory.createDirtSensor();
 		bareFloorSensor = SensorFactory.createFloorSensor(FloorType.BARE_FLOOR);
 		lowCarpetSensor = SensorFactory.createFloorSensor(FloorType.LOW_PILE_CARPET);
@@ -59,7 +59,7 @@ public class ProcessInit {
 		vacuumSystem = VacuumSystemFactory.createVacuum();
 	}
 	
-	private void createMovement(){
+	private void createMovement() throws Exception{
 		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
 	}
 	
@@ -67,7 +67,7 @@ public class ProcessInit {
 		ControllerFacade.initialize("SIMULATION");
 	}
 	
-	public void startRobot(){
+	public void startRobot() throws Exception{
 		processor =  ProcessorImpl.getInstance();
 		processor.goToNextCoordinate();
 	}

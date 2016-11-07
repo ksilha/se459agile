@@ -21,13 +21,13 @@ public class ProcessorImpl implements Processor {
 	private ProcessTracker processTracker;
 	private static Processor processor;
 	
-	private ProcessorImpl (){
+	private ProcessorImpl () throws Exception{
 		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
 		processTracker = processTracker.getInstance();
 		navigation = NavigationFactory.createNavigation();
 	}
 	
-	public static Processor getInstance () {
+	public static Processor getInstance () throws Exception {
 		if (processor == null)
 			return new ProcessorImpl ();
 		return processor;

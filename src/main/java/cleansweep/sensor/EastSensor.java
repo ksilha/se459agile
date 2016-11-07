@@ -18,6 +18,7 @@ public class EastSensor extends ObstacleSensor {
 	@Override
 	public boolean detect() {
 		return ControllerFacade.senseObstruction(Direction.EAST);
+		
 	}
 	
 	

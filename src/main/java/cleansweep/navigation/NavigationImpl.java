@@ -32,14 +32,14 @@ public class NavigationImpl implements Navigation {
 	private static Navigation navigation;
 	private Direction currentDir = Direction.WEST;
 	
-	private NavigationImpl (){
+	private NavigationImpl () throws Exception{
 		eastSensor = (EastSensor) SensorFactory.createObstacleSensor(Direction.EAST);
 		westSensor = (WestSensor) SensorFactory.createObstacleSensor(Direction.WEST);
 		northSensor = (NorthSensor) SensorFactory.createObstacleSensor(Direction.NORTH);
 		southSensor = (SouthSensor) SensorFactory.createObstacleSensor(Direction.SOUTH);
 	}
 	
-	public static Navigation getInstance (){
+	public static Navigation getInstance () throws Exception{
 		if (navigation == null)
 			return new NavigationImpl ();
 		return navigation;

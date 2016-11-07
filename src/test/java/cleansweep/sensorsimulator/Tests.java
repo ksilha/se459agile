@@ -1,9 +1,11 @@
 package cleansweep.sensorsimulator;
 import org.junit.*;
 
-import battery.Battery;
+import cleansweep.battery.Battery;
 
 import static org.junit.Assert.*;
+
+import cleansweep.battery.BatteryInst;
 import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
 import cleansweep.movement.MovementImpl;
@@ -227,7 +229,7 @@ public class Tests {
 //Sensor Tests
 	
 	@Test
-	public void setSensorTypeTest() {
+	public void setSensorTypeTest() throws Exception {
 		Sensor ds = SensorFactory.createDirtSensor();
 		Sensor fs = SensorFactory.createFloorSensor(FloorType.BARE_FLOOR);
 		//Sensor os = new Sensor(SensorType.OBSTACLE);
@@ -326,7 +328,7 @@ public class Tests {
 	
 	//FIX THIS
 	@Test
-	public void testGetDirection(){
+	public void testGetDirection() throws Exception{
 		CoordinatesDTO coordinates = new CoordinatesDTO();
 		
 		NavigationImpl nl = (NavigationImpl) NavigationFactory.createNavigation();
@@ -355,7 +357,12 @@ public class Tests {
 	public void testUseEnergy() {
 		Battery b = new Battery();
 		int e1 = b.getEnergy();
-		b.setEnergy(-50);
+		try {
+			b.setEnergy(-50);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertFalse( "energy is " + b.getEnergy()  + " but should be 50 ",b.getEnergy() == 50);
 	}
 	
@@ -363,7 +370,12 @@ public class Tests {
 	public void testAddEnergyOver100() { 
 		Battery b = new Battery();
 		int e1 = b.getEnergy();
-		b.setEnergy(50);
+		try {
+			b.setEnergy(50);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Energy is" + b.getEnergy());
 		assertNotEquals( "energy is " + b.getEnergy() + " but should be 100", b.getEnergy() == 100);
 	}
@@ -372,8 +384,18 @@ public class Tests {
 	public void testAddandSubtractEnergy() {
 		Battery b = new Battery();
 		int e1 = b.getEnergy();
-		b.setEnergy(-50);
-		b.setEnergy(25);
+		try {
+			b.setEnergy(-50);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			b.setEnergy(25);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Energy is" + b.getEnergy());
 		assert( b.getEnergy() == 75);
 	}

@@ -1,4 +1,4 @@
-package battery;
+package cleansweep.battery;
 
 public class BatteryInst {
 	private static BatteryInst battery = new BatteryInst();
@@ -19,8 +19,16 @@ public class BatteryInst {
 		return energy;
 	}
 
-	public void setEnergy(int amount)
+	public void setEnergy(int amount) throws Exception
 	{
 		energy += amount;
+		if (energy > 100) {
+			throw new Exception("Charge cannot be over 100");
+		}
+	}
+	
+	public void resetEnergy()
+	{
+		energy = 100;
 	}
 }

@@ -11,7 +11,7 @@ import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 public class NavigationFactory {
 	
-	public static Navigation createNavigation(){
+	public static Navigation createNavigation() throws Exception{
 		return NavigationImpl.getInstance();
 	}
 
