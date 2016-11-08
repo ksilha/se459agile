@@ -163,4 +163,17 @@ public class NavigationImpl implements Navigation {
 		westObstacle = false;
 		
 	}
+
+	@Override
+	public Direction getDirectionToChargingStation(CoordinatesDTO current, HashMap <CoordinatesDTO, Integer> visitedMap) {
+		currentCoordinate = current;
+		setAllCoordinates();
+		senseObstaclesFromAllDirections();
+		if (northObstacle == false && visitedMap.containsKey(northCoordinate))
+			return Direction.NORTH;
+		else if (eastObstacle == false && visitedMap.containsKey(eastCoordinate))
+			return Direction.EAST;
+
+		return null;
+	}
 }

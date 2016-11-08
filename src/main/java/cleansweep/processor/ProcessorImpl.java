@@ -31,7 +31,7 @@ public class ProcessorImpl implements Processor {
 	private int southBoundary;
 	private int northBoundary;
 	private ProcessTracker processTracker;
-	private VacuumSystem vacuum;
+	private CoordinatesDTO chargingStationLocation = new CoordinatesDTO (0,0);
 	
 	public ProcessorImpl () throws Exception{
 		createSensors();
@@ -178,7 +178,6 @@ public class ProcessorImpl implements Processor {
 			{	
 				System.out.println("Current Coordinate: "+currentCoordinate.toString());
 				System.out.println("Current Direction: "+ direction.toString());
-				System.out.println("");
 			if (direction == Direction.WEST){
 				movement.moveWest();
 				newCoordinate = new CoordinatesDTO(currentCoordinate.row, currentCoordinate.column-1);
@@ -205,15 +204,25 @@ public class ProcessorImpl implements Processor {
 			checkDirt();
 			System.out.println("Total dirt picked up: "+vacuumSystem.getTotalDirtWeight());
 			System.out.println("Remaining Dirt Bag Capacity: "+vacuumSystem.getCapacity());
+			System.out.println("");
 			}
 	}
 	
 	
 	private void checkDirt(){
-		if (dirtSensor.detect()){
-			System.out.println("dirt detected");
-			vacuumSystem.clean();
+		while (dirtSensor.detect()){
+			if (!vacuumSystem.isFull())
+				vacuumSystem.clean();
+			else
+				goBackToChargingStation ();
 		}
+	}
+	
+	private void goBackToChargingStation(){
+		
+		
+		
+		
 	}
 
 	@Override

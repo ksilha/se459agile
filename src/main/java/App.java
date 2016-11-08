@@ -6,6 +6,7 @@ import cleansweep.processor.ProcessInit;
 import cleansweep.processor.ProcessTracker;
 import cleansweep.processor.Processor;
 import cleansweep.processor.ProcessorImpl;
+import cleansweep.sensorcontroller.Controller;
 import cleansweep.sensorcontroller.ControllerFacade;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorcontroller.ControllerFacade.FloorType;
@@ -68,6 +69,8 @@ public class App
         System.out.println("Floor Type: " + floorType);
         */
     	
+    	
+    	
     	ProcessInit process1 = new ProcessInit ();
     	process1.initializeSimulation("floorPlan1.txt");
     	process1.startRobot();
@@ -117,7 +120,6 @@ public class App
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-    	
     	
     }
 }

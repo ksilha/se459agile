@@ -25,7 +25,6 @@ import cleansweep.vacuum.VacuumSystem;
 import cleansweep.vacuum.VacuumSystemFactory;
 
 public class ProcessInit {
-	private Controller simulatorController;
 	private Processor robotProcessor;
 	
 	
@@ -45,10 +44,6 @@ public class ProcessInit {
 	
 	public Processor getProcessor (){
 		return robotProcessor;
-	}
-	
-	public Controller getSimulatorController(){
-		return simulatorController;
 	}
 	
 	

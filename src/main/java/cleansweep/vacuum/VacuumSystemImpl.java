@@ -21,14 +21,6 @@ public class VacuumSystemImpl implements VacuumSystem {
 	@Override
 	public void clean() {
 		ControllerFacade.clean();
-		if (totalDirtWeight == capacity) {
-			try {
-				throw new Exception("Bag is full");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		totalDirtWeight++;
 	}
 
