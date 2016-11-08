@@ -90,12 +90,14 @@ public class FloorplanImpl implements Floorplan {
 	}
 
 	public boolean senseDirt() {
-		// TODO Auto-generated method stub
-		return false;
+		Cell cell = grid[currentRow][currentColumn];
+		
+		return cell.senseDirt();
 	}
 
 	public void clean() {
-		// TODO Auto-generated method stub
+		Cell cell = grid[currentRow][currentColumn];
 		
+		cell.clean();
 	}
 }
