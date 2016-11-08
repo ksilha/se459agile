@@ -17,4 +17,26 @@ public class CoordinatesDTO {
 		return "("+row+","+column+")";
 	}
 	
+	@Override
+	public boolean equals (Object o){
+		if (o==this) return true;
+		if (!(o instanceof CoordinatesDTO)){
+			return false;
+		}
+		
+		CoordinatesDTO coor = (CoordinatesDTO) o;
+		
+		return coor.row==row && coor.column==column;
+	}
+	
+	@Override
+	public int hashCode(){
+		int result = 17;
+		result = 31*result+row;
+		result = 31*result+column;
+		return result;
+	}
+	
+	
+	
 }

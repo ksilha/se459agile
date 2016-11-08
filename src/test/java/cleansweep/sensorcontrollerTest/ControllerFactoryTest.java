@@ -11,7 +11,7 @@ import cleansweep.sensorsimulator.simulation.SimulationControllerImpl;
 public class ControllerFactoryTest {
 	@Test
 	public void createControllerTest() {
-		Controller s = ControllerFactory.createController("SIMULATION");
+		Controller s = ControllerFactory.createController("SIMULATION","floorplan.txt");
 		assertNotNull(s);
 	}
 }

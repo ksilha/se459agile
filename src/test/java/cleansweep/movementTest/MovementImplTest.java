@@ -10,7 +10,7 @@ public class MovementImplTest {
 	
 	@Test
 	public void testMovementImpl() {
-		Controller cl = ControllerFactory.createController("SIMULATION");
+		Controller cl = ControllerFactory.createController("SIMULATION", "floorplan.txt");
 		MovementImpl ml = new MovementImpl();
 		
 		assertNotNull(ml);

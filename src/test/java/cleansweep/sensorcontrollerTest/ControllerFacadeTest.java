@@ -13,7 +13,7 @@ import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 public class ControllerFacadeTest {
 	@Test
 	public void testSenseObstruction() {
-		ControllerFacade.initialize("SIMULATION");
+		ControllerFacade.initialize("SIMULATION", "floorplan.txt");
 		Boolean obstructionN = ControllerFacade.senseObstruction(Direction.NORTH);
 		Boolean obstructionS = ControllerFacade.senseObstruction(Direction.SOUTH);
 		Boolean obstructionE =ControllerFacade.senseObstruction(Direction.EAST);
@@ -28,7 +28,7 @@ public class ControllerFacadeTest {
 
 	@Test
 	public void testSenseFloorType() {
-		ControllerFacade.initialize("SIMULATION");
+		ControllerFacade.initialize("SIMULATION", "floorplan.txt");
 		FloorType ft = ControllerFacade.senseFloorType();
 		
 		assertNotNull(ft);
@@ -42,7 +42,7 @@ public class ControllerFacadeTest {
 
 	@Test
 	public void testMove() {
-		ControllerFacade.initialize("SIMULATION");
+		ControllerFacade.initialize("SIMULATION", "floorplan.txt");
 		
 		assertNotNull(ControllerFacade.move(Direction.NORTH));
 		assertNotNull(ControllerFacade.move(Direction.SOUTH));
@@ -52,7 +52,7 @@ public class ControllerFacadeTest {
 
 	@Test
 	public void testCheckPercentExplored() {
-		ControllerFacade.initialize("SIMULATION");
+		ControllerFacade.initialize("SIMULATION", "floorplan.txt");
 
 		int percent = ControllerFacade.checkPercentExplored();
 		System.out.println(percent + "Percent Explored");
@@ -61,7 +61,7 @@ public class ControllerFacadeTest {
 
 	@Test
 	public void testCurrentLocation() {
-		ControllerFacade.initialize("SIMULATION");
+		ControllerFacade.initialize("SIMULATION", "floorplan.txt");
 
 		CoordinatesDTO cl = ControllerFacade.currentLocation();
 		assertNotNull(cl);

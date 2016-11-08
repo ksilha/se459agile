@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 public class ProcessTracker {
-	private LinkedList <CoordinatesDTO> path = new LinkedList <CoordinatesDTO>();
+	private ArrayList <CoordinatesDTO> path = new ArrayList <CoordinatesDTO>();
 	private HashMap <CoordinatesDTO, Integer> visitedCoordinatesMap =  new  HashMap <CoordinatesDTO, Integer>() ;
 	private static ProcessTracker processTracker;  
 	
@@ -21,7 +21,7 @@ public class ProcessTracker {
 		return processTracker; 
 	}
 	
-	public LinkedList<CoordinatesDTO> getPath() {
+	public ArrayList<CoordinatesDTO> getPath() {
 		return path;
 	}
 
@@ -39,7 +39,7 @@ public class ProcessTracker {
 	public CoordinatesDTO getCurrentCoordinate(){
 		if (path.size()==0)
 			return new CoordinatesDTO (0,0);
-		return path.getLast();
+		return path.get(path.size()-1);
 	}
 	
 	public void addCoordinateToMap (CoordinatesDTO coordinate){

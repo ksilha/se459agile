@@ -9,8 +9,8 @@ import cleansweep.sensorsimulator.floorplan.FloorplanFactory;
 public class SimulationControllerImpl implements Controller {
 	private Floorplan floorplan;
 	
-	public SimulationControllerImpl() {
-		floorplan = FloorplanFactory.createFloorplan("floorplan2.txt");
+	public SimulationControllerImpl(String floorPlan) {
+		floorplan = FloorplanFactory.createFloorplan(floorPlan);
 	}
 
 	public boolean senseObstruction(Direction direction) {

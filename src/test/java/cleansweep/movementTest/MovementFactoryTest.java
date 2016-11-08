@@ -11,7 +11,7 @@ import cleansweep.sensorcontroller.ControllerFactory;
 public class MovementFactoryTest {
 	@Test
 	public void testCreateMovement() throws Exception {
-		Controller cl = ControllerFactory.createController("SIMULATION");
+		Controller cl = ControllerFactory.createController("SIMULATION", "floorplan.txt");
 		Movement m = MovementFactory.createMovement("SIMULATOR");
 		assertNull("Movement m is null", m);
 	}
@@ -19,13 +19,13 @@ public class MovementFactoryTest {
 	//change to correct type of exception 
 	@Test (expected=Exception.class)
 	public void testCreateMovementWithNullMovementType() throws Exception {
-		Controller cl = ControllerFactory.createController("SIMULATION");
+		Controller cl = ControllerFactory.createController("SIMULATION", "floorplan.txt");
 		Movement m = MovementFactory.createMovement(null);
 	}
 	
 	@Test
 	public void testCreateMovementWithVirtualWheelMovementType() throws Exception {
-		Controller cl = ControllerFactory.createController("SIMULATION");
+		Controller cl = ControllerFactory.createController("SIMULATION", "floorplan.txt");
 		Movement m = MovementFactory.createMovement("VIRTUAL_WHEEL");
 		assertNotNull("m is " + m, m);
 	}

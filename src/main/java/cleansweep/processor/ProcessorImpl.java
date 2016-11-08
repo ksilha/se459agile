@@ -7,11 +7,23 @@ import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
 import cleansweep.navigation.Navigation;
 import cleansweep.navigation.NavigationFactory;
+import cleansweep.sensor.Sensor;
+import cleansweep.sensor.SensorFactory;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
+import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
+import cleansweep.vacuum.VacuumSystem;
+import cleansweep.vacuum.VacuumSystemFactory;
 
 public class ProcessorImpl implements Processor {
+	private Sensor dirtSensor;
+	private Sensor lowCarpetSensor;
+	private Sensor highCarpetSensor;
+	private Sensor chargingStationSensor;
+	private Sensor bareFloorSensor;
+	private VacuumSystem vacuumSystem;
 	private CoordinatesDTO currentCoordinate;
+	private HashMap <CoordinatesDTO,Integer> visitedMap;
 	private Navigation navigation;
 	private Movement movement;
 	private int westBoundary; 
@@ -19,18 +31,26 @@ public class ProcessorImpl implements Processor {
 	private int southBoundary;
 	private int northBoundary;
 	private ProcessTracker processTracker;
-	private static Processor processor;
+	private VacuumSystem vacuum;
 	
-	private ProcessorImpl () throws Exception{
+	public ProcessorImpl () throws Exception{
+		createSensors();
+		createVacuumSystem ();
 		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
 		processTracker = processTracker.getInstance();
 		navigation = NavigationFactory.createNavigation();
 	}
 	
-	public static Processor getInstance () throws Exception {
-		if (processor == null)
-			return new ProcessorImpl ();
-		return processor;
+	private void createSensors () throws Exception{
+		dirtSensor = SensorFactory.createDirtSensor();
+		bareFloorSensor = SensorFactory.createFloorSensor(FloorType.BARE_FLOOR);
+		lowCarpetSensor = SensorFactory.createFloorSensor(FloorType.LOW_PILE_CARPET);
+		highCarpetSensor = SensorFactory.createFloorSensor(FloorType.HIGH_PILE_CARPET);
+		chargingStationSensor = SensorFactory.createFloorSensor(FloorType.CHARGING_STATION);
+	}
+	
+	private void createVacuumSystem (){
+		vacuumSystem = VacuumSystemFactory.createVacuum();
 	}
 	
 	private void checkParameters (Movement mov){
@@ -146,37 +166,93 @@ public class ProcessorImpl implements Processor {
 	@Override
 	public void goToNextCoordinate () {
 		CoordinatesDTO newCoordinate = null;
+		
 		currentCoordinate = processTracker.getCurrentCoordinate();
-		Direction direction = navigation.getDirection(currentCoordinate);
+		processTracker.addCoordinateToMap(currentCoordinate);
+		processTracker.addPath(currentCoordinate);
+		visitedMap = processTracker.getVisitedCoordinatesMap();
+		
+		
+		Direction direction = navigation.getDirection(currentCoordinate, visitedMap);
 			while (!hasTraverseAllCells(direction))
-			{			
+			{	
+				System.out.println("Current Coordinate: "+currentCoordinate.toString());
+				System.out.println("Current Direction: "+ direction.toString());
+				System.out.println("");
 			if (direction == Direction.WEST){
 				movement.moveWest();
-				newCoordinate = new CoordinatesDTO(currentCoordinate.row-1, currentCoordinate.column);
+				newCoordinate = new CoordinatesDTO(currentCoordinate.row, currentCoordinate.column-1);
 				updateBoundary (Direction.WEST, newCoordinate.row);
-				System.out.println(newCoordinate.toString());
 			}
 			else if (direction == Direction.EAST){
 				movement.moveEast();
-				newCoordinate = new CoordinatesDTO (currentCoordinate.row+1, currentCoordinate.column);
+				newCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
 				updateBoundary (Direction.EAST, newCoordinate.row);
-				System.out.println(newCoordinate.toString());
 			}
 			else if (direction == Direction.NORTH){
 				movement.moveNorth();
-				newCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
+				newCoordinate = new CoordinatesDTO (currentCoordinate.row+1, currentCoordinate.column);
 				updateBoundary (Direction.EAST, newCoordinate.column);
-				System.out.println(newCoordinate.toString());
 			}
 			else if (direction == Direction.SOUTH){
 				movement.moveSouth();
-				newCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column-1);
-				System.out.println(newCoordinate.toString());
+				newCoordinate = new CoordinatesDTO (currentCoordinate.row-1, currentCoordinate.column);
 			}
 			
 			processTracker.addCoordinateToMap(newCoordinate);
 			processTracker.addPath(newCoordinate);
-			direction = navigation.getDirection(newCoordinate);
+			direction = navigation.getDirection(newCoordinate,visitedMap);
+			checkDirt();
+			System.out.println("Total dirt picked up: "+vacuumSystem.getTotalDirtWeight());
+			System.out.println("Remaining Dirt Bag Capacity: "+vacuumSystem.getCapacity());
 			}
+	}
+	
+	
+	private void checkDirt(){
+		if (dirtSensor.detect()){
+			System.out.println("dirt detected");
+			vacuumSystem.clean();
+		}
+	}
+
+	@Override
+	public ArrayList<CoordinatesDTO> getPath() {
+		return processTracker.getPath();
+	}
+
+	@Override
+	public boolean getEastObstacle() {
+		return navigation.checkEastObstacle();
+	}
+
+	@Override
+	public boolean getWestObstacle() {
+		return navigation.checkWestObstacle();
+	}
+
+	@Override
+	public boolean getNorthObstacle() {
+		return navigation.checkNorthObstacle();
+	}
+
+	@Override
+	public boolean getSouthObstacle() {
+		return navigation.checkSouthObstacle();
+	}
+
+	@Override
+	public CoordinatesDTO getCurrentCoordinate() {
+		return currentCoordinate;
+	}
+
+	@Override
+	public int getTotalDirtPickUp() {
+		return vacuumSystem.getTotalDirtWeight();
+	}
+
+	@Override
+	public int remainingBagCapacity() {
+		return vacuumSystem.getCapacity();
 	}
 }

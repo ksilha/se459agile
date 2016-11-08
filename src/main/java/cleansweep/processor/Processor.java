@@ -11,9 +11,17 @@ public interface Processor {
 	int getEastBoundary ();
 	int getNorthBoundary ();
 	int getSouthBoundary ();
+	boolean getEastObstacle ();
+	boolean getWestObstacle();
+	boolean getNorthObstacle();
+	boolean getSouthObstacle();
+	CoordinatesDTO getCurrentCoordinate();
 	int getEastWestDistance ();
 	int getNorthSouthDistance ();
 	int shortestDistanceFromChargingStation ();
 	boolean hasTraverseAllCells (Direction dir);
+	ArrayList <CoordinatesDTO> getPath ();
 	void goToNextCoordinate ();
+	int getTotalDirtPickUp ();
+	int remainingBagCapacity();
 }

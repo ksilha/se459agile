@@ -9,7 +9,7 @@ import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
 
 public interface Navigation {	
-	Direction getDirection (CoordinatesDTO currentCoor);
+	Direction getDirection (CoordinatesDTO currentCoor, HashMap <CoordinatesDTO, Integer> visitedMap);
 	boolean checkNorthObstacle ();
 	boolean checkSouthObstacle ();
 	boolean checkEastObstacle ();

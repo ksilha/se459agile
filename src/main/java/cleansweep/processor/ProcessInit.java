@@ -25,50 +25,31 @@ import cleansweep.vacuum.VacuumSystem;
 import cleansweep.vacuum.VacuumSystemFactory;
 
 public class ProcessInit {
-	private Sensor dirtSensor;
-	private Sensor eastSensor;
-	private Sensor westSensor;
-	private Sensor northSensor;
-	private Sensor southSensor;
-	private Sensor lowCarpetSensor;
-	private Sensor highCarpetSensor;
-	private Sensor chargingStationSensor;
-	private Sensor bareFloorSensor;
-	private VacuumSystem vacuumSystem;
-	private Movement movement;
-	private Processor processor;
+	private Controller simulatorController;
+	private Processor robotProcessor;
 	
 	
-	public ProcessInit () throws Exception{
-		initializeSimulation ();
-		createSensors();
-		createVacuumSystem ();
-		createMovement();
-	}
-
-	
-	private void createSensors () throws Exception{
-		dirtSensor = SensorFactory.createDirtSensor();
-		bareFloorSensor = SensorFactory.createFloorSensor(FloorType.BARE_FLOOR);
-		lowCarpetSensor = SensorFactory.createFloorSensor(FloorType.LOW_PILE_CARPET);
-		highCarpetSensor = SensorFactory.createFloorSensor(FloorType.HIGH_PILE_CARPET);
-		chargingStationSensor = SensorFactory.createFloorSensor(FloorType.CHARGING_STATION);
+	public ProcessInit (){
+		
 	}
 	
-	private void createVacuumSystem (){
-		vacuumSystem = VacuumSystemFactory.createVacuum();
-	}
 	
-	private void createMovement() throws Exception{
-		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
-	}
-	
-	private void initializeSimulation (){
-		ControllerFacade.initialize("SIMULATION");
+	public void initializeSimulation (String floorPlan){
+		ControllerFacade.initialize("SIMULATION", floorPlan);
 	}
 	
 	public void startRobot() throws Exception{
-		processor =  ProcessorImpl.getInstance();
-		processor.goToNextCoordinate();
+		robotProcessor =  new ProcessorImpl();
+		robotProcessor.goToNextCoordinate();
 	}
+	
+	public Processor getProcessor (){
+		return robotProcessor;
+	}
+	
+	public Controller getSimulatorController(){
+		return simulatorController;
+	}
+	
+	
 }

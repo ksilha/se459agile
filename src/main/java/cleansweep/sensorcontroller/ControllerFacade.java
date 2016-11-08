@@ -13,8 +13,8 @@ public class ControllerFacade {
 	
 	private static Controller controller;
 	
-	public static void initialize(String hardwareVersion) {
-		controller = ControllerFactory.createController(hardwareVersion);
+	public static void initialize(String hardwareVersion, String floorPlan) {
+		controller = ControllerFactory.createController(hardwareVersion, floorPlan);
 	}
 	
 	public static Boolean senseObstruction(Direction direction) {

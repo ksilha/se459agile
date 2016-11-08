@@ -28,7 +28,6 @@ public class NavigationImpl implements Navigation {
 	private SouthSensor southSensor;
 	private EastSensor eastSensor;
 	private WestSensor westSensor;
-	private HashMap <CoordinatesDTO, Integer> visitedCoordinatesMap;
 	private static Navigation navigation;
 	private Direction currentDir = Direction.WEST;
 	
@@ -47,10 +46,10 @@ public class NavigationImpl implements Navigation {
 	
 	
 	private void setAllCoordinates(){
-		northCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
-		southCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column-1);
-		eastCoordinate = new CoordinatesDTO (currentCoordinate.row+1, currentCoordinate.column);
-		westCoordinate = new CoordinatesDTO (currentCoordinate.row-1, currentCoordinate.column);
+		northCoordinate = new CoordinatesDTO (currentCoordinate.row+1, currentCoordinate.column);
+		southCoordinate = new CoordinatesDTO (currentCoordinate.row-1, currentCoordinate.column);
+		eastCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
+		westCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column-1);
 	}
 	
 	
@@ -62,13 +61,26 @@ public class NavigationImpl implements Navigation {
 	}			
 
 	@Override
-	public Direction getDirection(CoordinatesDTO currentCoor) {
+	public Direction getDirection(CoordinatesDTO currentCoor, HashMap <CoordinatesDTO,Integer> visitedMap ) {
 		//System.out.println(visitedCoordinatesMap.toString());
 		currentCoordinate = currentCoor;
 		setAllCoordinates();
 		senseObstaclesFromAllDirections();
-		System.out.println("current direction"+currentDir);
 		
+		if (westObstacle == false && !visitedMap.containsKey(westCoordinate)){
+			return Direction.WEST;
+		} else if (southObstacle == false && !visitedMap.containsKey(southCoordinate) && ((westObstacle == true && visitedMap.containsKey(eastCoordinate)) || (eastObstacle == true && visitedMap.containsKey(westCoordinate)))){
+			return Direction.SOUTH;
+		} else if (eastObstacle == false && !visitedMap.containsKey(eastCoordinate)){
+			return Direction.EAST;
+		} else if (northObstacle == false && !visitedMap.containsKey(northCoordinate))
+			return Direction.NORTH;
+		
+		return null;
+		
+		
+		
+		/*
 		if (currentDir == Direction.WEST){
 			if (westObstacle == false)
 				return Direction.WEST;
@@ -82,8 +94,11 @@ public class NavigationImpl implements Navigation {
 					return Direction.EAST;
 				}
 				else {
+					System.out.println(visitedMap.toString());
 					currentDir = Direction.EAST;
-					return Direction.SOUTH;
+					if (visitedMap.containsKey(eastCoordinate))
+						return Direction.SOUTH;
+					return Direction.EAST;
 				}
 			}
 		}
@@ -95,16 +110,21 @@ public class NavigationImpl implements Navigation {
 						return Direction.EAST;
 					} else if (northObstacle == true && southObstacle == false)
 						return Direction.SOUTH;
-					else if (northObstacle == false && southObstacle == true)
+					else if (northObstacle == false && southObstacle == true){
+						currentDir = Direction.EAST;
 						return Direction.EAST;
+					}
 					else {
 						currentDir = Direction.WEST;
-						return Direction.SOUTH;
+						if (visitedMap.containsKey(westCoordinate))
+							return Direction.SOUTH;
+						return Direction.WEST;
 					}
 				}
 			}
-		
+
 		return null;	
+		*/
 	}
 
 	@Override

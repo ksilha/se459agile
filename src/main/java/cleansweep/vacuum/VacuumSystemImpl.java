@@ -54,6 +54,6 @@ public class VacuumSystemImpl implements VacuumSystem {
 
 	@Override
 	public int getCapacity() {
-		return capacity;
+		return capacity-totalDirtWeight;
 	}
 }
