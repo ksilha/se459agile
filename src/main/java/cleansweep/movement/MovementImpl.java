@@ -16,7 +16,7 @@ public class MovementImpl implements Movement {
 	public void moveNorth() {
 		boolean legalMove = ControllerFacade.move(Direction.NORTH);
 		if (!legalMove){
-			
+			//throw exception
 		}
 		else {
 			consumePower();
