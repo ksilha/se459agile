@@ -16,5 +16,5 @@ public interface Navigation {
 	boolean checkWestObstacle ();
 	int distanceToCharger();
 	void resetSensors ();
-
+	Direction getDirectionToChargingStation (CoordinatesDTO currentCoordinate, HashMap <CoordinatesDTO, Integer> visitedMap);
 }
