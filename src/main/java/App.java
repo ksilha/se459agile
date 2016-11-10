@@ -2,6 +2,7 @@
 
 import cleansweep.movement.Movement;
 import cleansweep.movement.MovementFactory;
+import cleansweep.navigation.Navigation;
 import cleansweep.processor.ProcessInit;
 import cleansweep.processor.ProcessTracker;
 import cleansweep.processor.Processor;
@@ -78,11 +79,6 @@ public class App
 		System.out.println("Robot Path :"+p1.getPath().toString());
 		System.out.println("");
 		System.out.println("LastCoordinate: "+p1.getCurrentCoordinate());
-		System.out.println("East Obstruction at Last Coordinate :"+p1.getEastObstacle());
-		System.out.println("South Obstruction at Last Coordinate :"+p1.getSouthObstacle());
-		System.out.println("West Obstruction at Last Coordinate :"+p1.getWestObstacle());
-		System.out.println("North Obstruction at Last Coordinate :"+p1.getNorthObstacle());
-		System.out.println("Total Dirt Picked Up :"+p1.getTotalDirtPickUp());
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
@@ -95,11 +91,6 @@ public class App
 		System.out.println("Robot Path :"+p2.getPath().toString());
 		System.out.println("");
 		System.out.println("LastCoordinate: "+p2.getCurrentCoordinate());
-		System.out.println("East Obstruction at Last Coordinate :"+p2.getEastObstacle());
-		System.out.println("South Obstruction at Last Coordinate :"+p2.getSouthObstacle());
-		System.out.println("West Obstruction at Last Coordinate :"+p2.getWestObstacle());
-		System.out.println("North Obstruction at Last Coordinate :"+p2.getNorthObstacle());
-		System.out.println("Total Dirt Picked Up :"+p2.getTotalDirtPickUp());
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
@@ -112,11 +103,6 @@ public class App
 		System.out.println("Robot Path :"+p3.getPath().toString());
 		System.out.println("");
 		System.out.println("LastCoordinate: "+p3.getCurrentCoordinate());
-		System.out.println("East Obstruction at Last Coordinate :"+p3.getEastObstacle());
-		System.out.println("South Obstruction at Last Coordinate :"+p3.getSouthObstacle());
-		System.out.println("West Obstruction at Last Coordinate :"+p3.getWestObstacle());
-		System.out.println("North Obstruction at Last Coordinate :"+p3.getNorthObstacle());
-		System.out.println("Total Dirt Picked Up :"+p3.getTotalDirtPickUp());
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");

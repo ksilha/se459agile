@@ -21,6 +21,7 @@ public class ProcessorImpl implements Processor {
 	private Sensor highCarpetSensor;
 	private Sensor chargingStationSensor;
 	private Sensor bareFloorSensor;
+	private FloorType floorType;
 	private VacuumSystem vacuumSystem;
 	private CoordinatesDTO currentCoordinate;
 	private HashMap <CoordinatesDTO,Integer> visitedMap;
@@ -74,6 +75,18 @@ public class ProcessorImpl implements Processor {
 					southBoundary = rowOrColumn;
 			}
 		}
+	
+	private FloorType getFloorType (){
+		if (lowCarpetSensor.detect())
+			return FloorType.LOW_PILE_CARPET;
+		else if (highCarpetSensor.detect())
+			return FloorType.HIGH_PILE_CARPET;
+		else if (bareFloorSensor.detect())
+			return FloorType.BARE_FLOOR;
+		else if (chargingStationSensor.detect())
+			return FloorType.CHARGING_STATION;
+		return FloorType.INVALID;
+	}
 			
 	@Override
 	public int getWestBoundary() {
@@ -171,10 +184,19 @@ public class ProcessorImpl implements Processor {
 		addCoordinateToMap (currentCoordinate);
 		
 		Direction direction = navigation.getDirection(currentCoordinate, visitedMap);
-			while (!hasTraverseAllCells(direction))
+			while (!hasTraverseAllCells(direction) && !isBagFull())
 			{	
+				if (isDirty())
+					clean();
+				
+				floorType = getFloorType();
+				
 				System.out.println("Current Coordinate: "+currentCoordinate.toString());
 				System.out.println("Current Direction: "+ direction.toString());
+				System.out.println("Floor Type: "+floorType);
+				System.out.println("Remaining Dirt Bag Capacity: "+vacuumSystem.getCapacity());
+				System.out.println("");
+				
 			if (direction == Direction.WEST){
 				movement.moveWest();
 				newCoordinate = new CoordinatesDTO(currentCoordinate.row, currentCoordinate.column-1);
@@ -197,11 +219,8 @@ public class ProcessorImpl implements Processor {
 			
 			addCoordinateToMap (newCoordinate);
 			direction = navigation.getDirection(newCoordinate,visitedMap);
-			checkDirt();
-			System.out.println("Total dirt picked up: "+vacuumSystem.getTotalDirtWeight());
-			System.out.println("Remaining Dirt Bag Capacity: "+vacuumSystem.getCapacity());
-			System.out.println("");
 			}
+			goBackToChargingStation();
 	}
 	
 	private void addCoordinateToMap (CoordinatesDTO coordinate){		
@@ -209,12 +228,17 @@ public class ProcessorImpl implements Processor {
 		processTracker.addPath(coordinate);
 	}
 	
-	private void checkDirt(){
-		while (dirtSensor.detect()){
-			if (!vacuumSystem.isFull())
-				vacuumSystem.clean();
-			else
-				goBackToChargingStation ();
+	private boolean isDirty (){
+		return dirtSensor.detect();
+	}
+	
+	private boolean isBagFull (){
+		return vacuumSystem.isFull();
+	}
+	
+	private void clean(){
+		while (isDirty() && !isBagFull()){
+			vacuumSystem.clean();
 		}
 	}
 	
@@ -223,6 +247,9 @@ public class ProcessorImpl implements Processor {
 		currentCoordinate = processTracker.getCurrentCoordinate();
 		while (!currentCoordinate.equals(chargingStationLocation)){
 			Direction dir = navigation.getDirectionToChargingStation(currentCoordinate, visitedMap);
+			System.out.println("Current Coordinate: "+currentCoordinate.toString());
+			System.out.println("Current Direction: "+ dir.toString());
+			
 			if (dir == Direction.WEST){
 				movement.moveWest();
 				newCoordinate = new CoordinatesDTO(currentCoordinate.row, currentCoordinate.column-1);
@@ -245,8 +272,8 @@ public class ProcessorImpl implements Processor {
 			
 			addCoordinateToMap (newCoordinate);
 			currentCoordinate = newCoordinate;
-			System.out.println("Current Coordinate: "+currentCoordinate.toString());
-			System.out.println("Current Direction: "+ dir.toString());
+			System.out.println("Remaining Dirt Bag Capacity: "+vacuumSystem.getCapacity());
+			System.out.println("");
 		}
 	}
 
@@ -289,4 +316,6 @@ public class ProcessorImpl implements Processor {
 	public int remainingBagCapacity() {
 		return vacuumSystem.getCapacity();
 	}
+
+	
 }

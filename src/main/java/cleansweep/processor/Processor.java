@@ -3,6 +3,7 @@ package cleansweep.processor;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cleansweep.navigation.Navigation;
 import cleansweep.sensorcontroller.ControllerFacade.Direction;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 
