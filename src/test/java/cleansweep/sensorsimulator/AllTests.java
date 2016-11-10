@@ -9,6 +9,8 @@ import cleansweep.navigationTest.*;
 import cleansweep.sensorTest.*;
 import cleansweep.sensorcontrollerTest.*;
 import cleansweep.sensorsimulator.cellTest.*;
+import cleansweep.sensorsimulator.floorplanTest.FloorplanFactoryTest;
+import cleansweep.sensorsimulator.floorplanTest.FloorplanImplTest;
 import cleansweep.vacuumTest.*;
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -35,7 +37,9 @@ import cleansweep.vacuumTest.*;
         LowCarpetSensorTest.class,
         SensorFactoryTest.class,
         VacuumSystemFactoryTest.class,
-        VacuumSystemImplTest.class
+        VacuumSystemImplTest.class,
+        FloorplanImplTest.class,
+        FloorplanFactoryTest.class
         
         })
 
