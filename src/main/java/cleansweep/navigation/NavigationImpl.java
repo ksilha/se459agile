@@ -169,11 +169,19 @@ public class NavigationImpl implements Navigation {
 		currentCoordinate = current;
 		setAllCoordinates();
 		senseObstaclesFromAllDirections();
-		if (northObstacle == false && visitedMap.containsKey(northCoordinate))
-			return Direction.NORTH;
+		if (northObstacle == false && visitedMap.containsKey(northCoordinate)){
+			if (!visitedMap.containsKey (southCoordinate))
+				return Direction.NORTH;
+			else if (visitedMap.get(southCoordinate) < visitedMap.get(northCoordinate))
+				return Direction.SOUTH;
+			else
+				return Direction.NORTH;
+		}
 		else if (eastObstacle == false && visitedMap.containsKey(eastCoordinate))
 			return Direction.EAST;
+		else if (southObstacle == false && visitedMap.containsKey(southCoordinate))
+			return Direction.SOUTH;
 
-		return null;
+		return Direction.WEST;
 	}
 }

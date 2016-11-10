@@ -166,12 +166,9 @@ public class ProcessorImpl implements Processor {
 	@Override
 	public void goToNextCoordinate () {
 		CoordinatesDTO newCoordinate = null;
-		
 		currentCoordinate = processTracker.getCurrentCoordinate();
-		processTracker.addCoordinateToMap(currentCoordinate);
-		processTracker.addPath(currentCoordinate);
 		visitedMap = processTracker.getVisitedCoordinatesMap();
-		
+		addCoordinateToMap (currentCoordinate);
 		
 		Direction direction = navigation.getDirection(currentCoordinate, visitedMap);
 			while (!hasTraverseAllCells(direction))
@@ -198,8 +195,7 @@ public class ProcessorImpl implements Processor {
 				newCoordinate = new CoordinatesDTO (currentCoordinate.row-1, currentCoordinate.column);
 			}
 			
-			processTracker.addCoordinateToMap(newCoordinate);
-			processTracker.addPath(newCoordinate);
+			addCoordinateToMap (newCoordinate);
 			direction = navigation.getDirection(newCoordinate,visitedMap);
 			checkDirt();
 			System.out.println("Total dirt picked up: "+vacuumSystem.getTotalDirtWeight());
@@ -208,6 +204,10 @@ public class ProcessorImpl implements Processor {
 			}
 	}
 	
+	private void addCoordinateToMap (CoordinatesDTO coordinate){		
+		processTracker.addCoordinateToMap(coordinate);
+		processTracker.addPath(coordinate);
+	}
 	
 	private void checkDirt(){
 		while (dirtSensor.detect()){
@@ -219,10 +219,35 @@ public class ProcessorImpl implements Processor {
 	}
 	
 	private void goBackToChargingStation(){
-		
-		
-		
-		
+		CoordinatesDTO newCoordinate = null;
+		currentCoordinate = processTracker.getCurrentCoordinate();
+		while (!currentCoordinate.equals(chargingStationLocation)){
+			Direction dir = navigation.getDirectionToChargingStation(currentCoordinate, visitedMap);
+			if (dir == Direction.WEST){
+				movement.moveWest();
+				newCoordinate = new CoordinatesDTO(currentCoordinate.row, currentCoordinate.column-1);
+				updateBoundary (Direction.WEST, newCoordinate.row);
+			}
+			else if (dir == Direction.EAST){
+				movement.moveEast();
+				newCoordinate = new CoordinatesDTO (currentCoordinate.row, currentCoordinate.column+1);
+				updateBoundary (Direction.EAST, newCoordinate.row);
+			}
+			else if (dir == Direction.NORTH){
+				movement.moveNorth();
+				newCoordinate = new CoordinatesDTO (currentCoordinate.row+1, currentCoordinate.column);
+				updateBoundary (Direction.EAST, newCoordinate.column);
+			}
+			else if (dir == Direction.SOUTH){
+				movement.moveSouth();
+				newCoordinate = new CoordinatesDTO (currentCoordinate.row-1, currentCoordinate.column);
+			}
+			
+			addCoordinateToMap (newCoordinate);
+			currentCoordinate = newCoordinate;
+			System.out.println("Current Coordinate: "+currentCoordinate.toString());
+			System.out.println("Current Direction: "+ dir.toString());
+		}
 	}
 
 	@Override
