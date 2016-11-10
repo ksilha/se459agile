@@ -21,7 +21,7 @@ public class FloorCellImpl implements Cell
 		obstruction = false;
 		
 		Random rand = new Random();
-		dirtLevel = rand.nextInt((5 - 1) + 1) + 1;
+		dirtLevel = rand.nextInt((2 - 1) + 1) + 1;
 	}
 
 	public FloorType getFloorType() {

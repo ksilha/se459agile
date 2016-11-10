@@ -16,7 +16,7 @@ import cleansweep.vacuumTest.*;
         MovementImplTest.class, 
         BatteryTest.class, 
        // NavigationFactoryTest.class,
-       // NavigationImplTest.class,
+        NavigationImplTest.class,
         ChargingBaseCellImplTest.class,
         DoorCellImplTest.class,
         FloorCellImplTest.class,
