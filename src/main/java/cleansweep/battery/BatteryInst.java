@@ -25,6 +25,10 @@ public class BatteryInst {
 		if (energy > 100) {
 			throw new Exception("Charge cannot be over 100");
 		}
+		else if(energy < 0)
+		{
+			throw new Exception("Charge cannot be less than 0");
+		}
 	}
 	
 	public void resetEnergy()

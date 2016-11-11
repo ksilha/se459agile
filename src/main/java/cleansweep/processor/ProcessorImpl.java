@@ -277,6 +277,7 @@ public class ProcessorImpl implements Processor {
 			addCoordinateToMap (newCoordinate);
 			currentCoordinate = newCoordinate;
 			System.out.println("Remaining Dirt Bag Capacity: "+vacuumSystem.getCapacity());
+			System.out.println("Battery Charge:" + battery.getEnergy());
 			System.out.println("");
 		}
 	}

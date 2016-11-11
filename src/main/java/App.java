@@ -106,6 +106,17 @@ public class App
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
+		
+    	ProcessInit process5 = new ProcessInit ();
+    	process5.initializeSimulation("floorPlan5.txt");
+    	process5.startRobot();
+    	Processor p5 = process5.getProcessor();
+		System.out.println("Robot Path :"+p5.getPath().toString());
+		System.out.println("");
+		System.out.println("LastCoordinate: "+p5.getCurrentCoordinate());
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
     	
     }
 }
