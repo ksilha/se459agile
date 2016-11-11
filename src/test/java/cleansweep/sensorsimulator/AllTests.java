@@ -6,11 +6,13 @@ import org.junit.runners.Suite.SuiteClasses;
 import cleansweep.batteryTest.*;
 import cleansweep.movementTest.*;
 import cleansweep.navigationTest.*;
+import cleansweep.processorTest.ProcessInitTest;
 import cleansweep.sensorTest.*;
 import cleansweep.sensorcontrollerTest.*;
 import cleansweep.sensorsimulator.cellTest.*;
 import cleansweep.sensorsimulator.floorplanTest.FloorplanFactoryTest;
 import cleansweep.sensorsimulator.floorplanTest.FloorplanImplTest;
+import cleansweep.sensorsimulator.simulationTest.CoordinatesDTOTest;
 import cleansweep.vacuumTest.*;
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -39,7 +41,9 @@ import cleansweep.vacuumTest.*;
         VacuumSystemFactoryTest.class,
         VacuumSystemImplTest.class,
         FloorplanImplTest.class,
-        FloorplanFactoryTest.class
+        FloorplanFactoryTest.class,
+        CoordinatesDTOTest.class,
+        ProcessInitTest.class
         
         })
 
