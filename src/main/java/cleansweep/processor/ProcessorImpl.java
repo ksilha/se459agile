@@ -14,6 +14,7 @@ import cleansweep.sensorcontroller.ControllerFacade.FloorType;
 import cleansweep.sensorsimulator.simulation.CoordinatesDTO;
 import cleansweep.vacuum.VacuumSystem;
 import cleansweep.vacuum.VacuumSystemFactory;
+import cleansweep.battery.Battery;
 
 public class ProcessorImpl implements Processor {
 	private Sensor dirtSensor;
@@ -33,6 +34,7 @@ public class ProcessorImpl implements Processor {
 	private int northBoundary;
 	private ProcessTracker processTracker;
 	private CoordinatesDTO chargingStationLocation = new CoordinatesDTO (0,0);
+	private Battery battery;
 	
 	public ProcessorImpl () throws Exception{
 		createSensors();
@@ -40,6 +42,7 @@ public class ProcessorImpl implements Processor {
 		movement = MovementFactory.createMovement("VIRTUAL_WHEEL");
 		processTracker = processTracker.getInstance();
 		navigation = NavigationFactory.createNavigation();
+		battery = new Battery();
 	}
 	
 	private void createSensors () throws Exception{
@@ -195,6 +198,7 @@ public class ProcessorImpl implements Processor {
 				System.out.println("Current Direction: "+ direction.toString());
 				System.out.println("Floor Type: "+floorType);
 				System.out.println("Remaining Dirt Bag Capacity: "+vacuumSystem.getCapacity());
+				System.out.println("Battery Charge: " + battery.getEnergy());
 				System.out.println("");
 				
 			if (direction == Direction.WEST){
