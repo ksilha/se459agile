@@ -3,10 +3,12 @@ package cleansweep.battery;
 public class BatteryInst {
 	private static BatteryInst battery = new BatteryInst();
 	private int energy;
+	private boolean lowEnergy;
 	
 	private BatteryInst()
 	{
 		energy = 100;
+		lowEnergy = false;
 	}
 	
 	public static BatteryInst getInstance()
@@ -34,5 +36,15 @@ public class BatteryInst {
 	public void resetEnergy()
 	{
 		energy = 100;
+	}
+	
+	public boolean getLowEnergy()
+	{
+		return lowEnergy;
+	}
+	
+	public void setLowEnergy(boolean state)
+	{
+		lowEnergy = state;
 	}
 }

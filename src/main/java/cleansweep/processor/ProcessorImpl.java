@@ -187,7 +187,7 @@ public class ProcessorImpl implements Processor {
 		addCoordinateToMap (currentCoordinate);
 		
 		Direction direction = navigation.getDirection(currentCoordinate, visitedMap);
-			while (!hasTraverseAllCells(direction) && !isBagFull())
+			while (!hasTraverseAllCells(direction) && !isBagFull() && !battery.lowEnergy())
 			{	
 				if (isDirty())
 					clean();
@@ -249,7 +249,7 @@ public class ProcessorImpl implements Processor {
 	private void goBackToChargingStation(){
 		CoordinatesDTO newCoordinate = null;
 		currentCoordinate = processTracker.getCurrentCoordinate();
-		while (!currentCoordinate.equals(chargingStationLocation)){
+		while (!currentCoordinate.equals(chargingStationLocation) && !battery.lowEnergy()){
 			Direction dir = navigation.getDirectionToChargingStation(currentCoordinate, visitedMap);
 			System.out.println("Current Coordinate: "+currentCoordinate.toString());
 			System.out.println("Current Direction: "+ dir.toString());

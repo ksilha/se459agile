@@ -15,4 +15,14 @@ public class Battery {
 	{
 		batteryInstance.setEnergy(energyChange);
 	}
+	
+	public boolean lowEnergy()
+	{
+		return batteryInstance.getLowEnergy();
+	}
+	
+	public void setLowEnergy(boolean state)
+	{
+		batteryInstance.setLowEnergy(state);
+	}
 }

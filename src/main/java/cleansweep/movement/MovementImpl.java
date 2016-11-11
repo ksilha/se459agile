@@ -16,45 +16,74 @@ public class MovementImpl implements Movement {
 	
 	@Override
 	public void moveNorth() {
-		boolean legalMove = (ControllerFacade.move(Direction.NORTH) && energyForMovement());
-		if (!legalMove){
-			//throw exception
+		if (energyForMovement())
+		{
+			boolean legalMove = (ControllerFacade.move(Direction.NORTH));
+			if (!legalMove){
+				//throw exception
+			}
+			else {
+				consumePower();
+			}
 		}
-		else {
-			consumePower();
+		else
+		{
+			battery.setLowEnergy(true);
 		}
 	}
 
 	@Override
 	public void moveSouth() {
-		boolean legalMove = (ControllerFacade.move(Direction.SOUTH) && energyForMovement());
-		if (!legalMove){
-			//throw exception
+		if (energyForMovement())
+		{
+			boolean legalMove = (ControllerFacade.move(Direction.SOUTH) && energyForMovement());
+			if (!legalMove){
+				//throw exception
+			}
+			else {
+				consumePower();
+			}
 		}
-		else {
-			consumePower();
+		else
+		{
+			battery.setLowEnergy(true);
 		}
 	}
 
 	@Override
 	public void moveEast() {
-		boolean legalMove = (ControllerFacade.move(Direction.EAST)&& energyForMovement());
-		if (!legalMove){
-			//throw exception
+		if (energyForMovement())
+		{
+			boolean legalMove = (ControllerFacade.move(Direction.EAST)&& energyForMovement());
+			if (!legalMove){
+				//throw exception
+			}
+			else {
+				consumePower();
+			}
 		}
-		else {
-			consumePower();
+		else
+		{
+			battery.setLowEnergy(true);
 		}
+		
 	}
 
 	@Override
 	public void moveWest() {
-		boolean legalMove = (ControllerFacade.move(Direction.WEST)&& energyForMovement());
-		if (!legalMove){
-			//throw exception
+		if (energyForMovement())
+		{
+			boolean legalMove = (ControllerFacade.move(Direction.WEST)&& energyForMovement());
+			if (!legalMove){
+				//throw exception
+			}
+			else {
+				consumePower();
+			}
 		}
-		else {
-			consumePower();
+		else
+		{
+			battery.setLowEnergy(true);
 		}
 	}
 
