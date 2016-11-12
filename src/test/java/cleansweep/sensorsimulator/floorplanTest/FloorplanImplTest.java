@@ -74,7 +74,7 @@ public class FloorplanImplTest {
 		int newRow = c.row;
 		int newCol = c.column;
 		
-		assertEquals("Row coordinates are not correct",oldRow +1, newRow + 1);
+		assertEquals("Row coordinates are not correct",oldRow, newRow);
 		assertEquals("Column coordinates are not coorect", oldCol, newCol);
 	}
 	
@@ -91,7 +91,7 @@ public class FloorplanImplTest {
 		int newCol = c.column;
 		
 		assertEquals("Row coordinates are not correct",oldRow , newRow);
-		assertEquals("Column coordinates are not coorect", oldCol + 1, newCol + 1);
+		assertEquals("Column coordinates are not coorect", oldCol, newCol);
 	}
 	
 	@Test
@@ -107,7 +107,7 @@ public class FloorplanImplTest {
 		int newCol = c.column;
 		
 		assertEquals("Row coordinates are not correct",oldRow, newRow);
-		assertEquals("Column coordinates are not coorect", oldCol - 1, newCol -1);
+		assertEquals("Column coordinates are not coorect", oldCol, newCol);
 	}
 	
 	@Test
