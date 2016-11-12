@@ -7,6 +7,7 @@ import cleansweep.batteryTest.*;
 import cleansweep.movementTest.*;
 import cleansweep.navigationTest.*;
 import cleansweep.processorTest.ProcessInitTest;
+import cleansweep.processorTest.ProcessorImplTest;
 import cleansweep.sensorTest.*;
 import cleansweep.sensorcontrollerTest.*;
 import cleansweep.sensorsimulator.cellTest.*;
@@ -43,7 +44,8 @@ import cleansweep.vacuumTest.*;
         FloorplanImplTest.class,
         FloorplanFactoryTest.class,
         CoordinatesDTOTest.class,
-        ProcessInitTest.class
+        ProcessInitTest.class,
+        ProcessorImplTest.class
         
         })
 
