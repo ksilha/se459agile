@@ -2,6 +2,8 @@ package cleansweep.processorTest;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 import cleansweep.processor.ProcessorImpl;
@@ -68,22 +70,46 @@ public class ProcessorImplTest {
 	}
 	
 	@Test
-	public void goToNextCoordinateTest() {};
+	public void goToNextCoordinateTest() {
+		
+	};
 	
 	@Test
-	public void getPathTest(){};
+	public void getPathTest() throws Exception{
+		ProcessorImpl p = new ProcessorImpl();
+		ArrayList<CoordinatesDTO> path = p.getPath();
+		assertNotNull(path);
+	};
 	
 	@Test
-	public void getEastObstacleTest(){};
+	public void getEastObstacleTest() throws Exception{
+		ProcessorImpl p = new ProcessorImpl();
+		boolean b = p.getEastObstacle();
+		assertNotNull(b);
+	};
 	
 	@Test
-	public void getWestObstacleTest(){};
+	public void getWestObstacleTest() throws Exception{
+		ProcessorImpl p = new ProcessorImpl();
+		boolean b = p.getWestObstacle();
+		assertNotNull(b);
+	};
 	
 	@Test
-	public void getNorthObstacleTest(){};
+	public void getNorthObstacleTest() throws Exception{
+		ProcessorImpl p = new ProcessorImpl();
+		boolean b = p.getNorthObstacle();
+		assertNotNull(b);
+	};
 	
 	@Test
-	public void getSouthObstacleTest(){};
+	public void getSouthObstacleTest() throws Exception{
+		ProcessorImpl p = new ProcessorImpl();
+		boolean b = p.getSouthObstacle();
+		assertNotNull(b);
+		
+
+	};
 	
 	@Test
 	public void getCurrentCoordinateTest() throws Exception{
