@@ -6,8 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import cleansweep.batteryTest.*;
 import cleansweep.movementTest.*;
 import cleansweep.navigationTest.*;
-import cleansweep.processorTest.ProcessInitTest;
-import cleansweep.processorTest.ProcessorImplTest;
+import cleansweep.processorTest.*;
 import cleansweep.sensorTest.*;
 import cleansweep.sensorcontrollerTest.*;
 import cleansweep.sensorsimulator.cellTest.*;
@@ -45,7 +44,8 @@ import cleansweep.vacuumTest.*;
         FloorplanFactoryTest.class,
         CoordinatesDTOTest.class,
         ProcessInitTest.class,
-        ProcessorImplTest.class
+        ProcessorImplTest.class,
+        ProcessTrackerTest.class
         
         })
 
