@@ -21,7 +21,7 @@ public class DoorCellImplTest {
 	//tests default constructor
 	public void testDoorwayIsObstructionDefault() { 
 		Cell doorCell = CellFactory.createCell('D');
-		assertTrue(doorCell.isObstruction() == true);
+		assertTrue(doorCell.isObstruction() == false);
 	}
 
 	@Test

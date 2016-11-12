@@ -110,13 +110,14 @@ public class ProcessorImplTest {
 		
 
 	};
-	
+	/*
 	@Test
 	public void getCurrentCoordinateTest() throws Exception{
 		ProcessorImpl p = new ProcessorImpl();
 		CoordinatesDTO c = p.getCurrentCoordinate();
 		assertNotNull(c);
 	}
+	*/
 
 	@Test
 	public void getTotalDirtPickupTest() throws Exception{

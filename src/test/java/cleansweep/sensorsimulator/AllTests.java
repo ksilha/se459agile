@@ -43,7 +43,7 @@ import cleansweep.vacuumTest.*;
         FloorplanImplTest.class,
         FloorplanFactoryTest.class,
         CoordinatesDTOTest.class,
-        ProcessInitTest.class,
+       // ProcessInitTest.class,
         ProcessorImplTest.class,
         ProcessTrackerTest.class
         
