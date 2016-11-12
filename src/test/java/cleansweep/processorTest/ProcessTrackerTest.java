@@ -63,6 +63,25 @@ public class ProcessTrackerTest {
 	}*/
 	
 	
+	@Test
+	public void addCoordinateToMapTest() {
+		ProcessTracker t = ProcessTracker.getInstance();
+		CoordinatesDTO d = new CoordinatesDTO(12,17);
+		t.addCoordinateToMap(d);
+		
+		//test first branch
+		assertTrue(t.getVisitedCoordinatesMap().containsKey(d));
+		t.addCoordinateToMap(d);
+		//test second branch
+		assertTrue(t.getVisitedCoordinatesMap().containsKey(d));
+
+
+		
+		
+
+	}
+	
+	
 	
 	
 	
