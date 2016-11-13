@@ -439,7 +439,7 @@ public class Tests {
 		VacuumSystem v = VacuumSystemFactory.createVacuum();
 		int i = 0;
 		while (i < 100) {
-			v.clean();
+			//v.clean();
 			i++;
 		}
 	}
